@@ -19,17 +19,21 @@ require '../database.php';
 
 $db = new Database();
 $query = 
-"CREATE TABLE users
+"CREATE TABLE Student
 (
-	id int(11) NOT NULL AUTO_INCREMENT,
-	login varchar(25) NOT NULL,
+	userID int(11) NOT NULL AUTO_INCREMENT,
+	password varchar(25) NOT NULL,
+	profilePicture varchar(32) DEFAULT NULL,
+	name varchar(32) NOT NULL,
 	email varchar(32) NOT NULL,
-	password varchar(32) NOT NULL,
-	reset varchar(32) default NULL,
-        session_id varchar(40) DEFAULT '0' NOT NULL,
-        Profile_pic varchar(100) DEFAULT NULL,
+        personalLink varchar(50) DEFAULT NULL,
+        phoneNumber varchar(32) NOT NULL,
+        address varchar(32) DEFAULT NULL,
+        visaStatus varchar(11) DEFAULT NULL,
+        school varchar(32) DEFAULT NULL,
+        resume varchar(32) NOT NULL,
         
-	PRIMARY KEY (id)
+	PRIMARY KEY (userID)
 );";
 
 $statement = $db->prepare($query);
@@ -37,24 +41,25 @@ $success = $statement->execute();
 
 if($success)
 {
-    echo 'User table has been successfully created.<br />';
+    echo 'Student table has been successfully created.<br />';
 }
 else 
 {
-    echo 'Creating User table failed or it\'s been already made.<br />';
+    echo 'Creating Student table failed or it\'s been already made.<br />';
 }
 
 
 $query = 
-"CREATE TABLE status
+"CREATE TABLE Recruiter
 (
-	Id int(32) NOT NULL AUTO_INCREMENT,
-	UId int(11) NOT NULL,
-        Privacy int(1) NOT NULL,
-	Status varchar(500) DEFAULT NULL,
-        Date timestamp DEFAULT CURRENT_TIMESTAMP,
+	userID int(11) NOT NULL AUTO_INCREMENT,
+	password varchar(25) NOT NULL,
+	profilePicture varchar(32) DEFAULT NULL,
+	name varchar(32) NOT NULL,
+	email varchar(32) NOT NULL,
+        personalLink varchar(50) DEFAULT NULL,
 
-	PRIMARY KEY (Id)
+	PRIMARY KEY (userID)
 );";
 
 $statement = $db->prepare($query);
@@ -62,11 +67,11 @@ $success = $statement->execute();
 
 if($success)
 {
-    echo 'Status table has been successfully created.<br />';
+    echo 'Recruiter table has been successfully created.<br />';
 }
 else 
 {
-    echo 'Creating Status table failed or it\'s been already made.<br />'; 
+    echo 'Creating Recruiter table failed or it\'s been already made.<br />'; 
 }
 
 
@@ -95,7 +100,7 @@ else
 }
 
 $query = 
-"CREATE TABLE comment
+"CREATE TABLE Job
 (
 	Id int(32) NOT NULL AUTO_INCREMENT,
 	UId int(11) NOT NULL,
@@ -117,27 +122,4 @@ else
     echo 'Creating Comment table failed or it\'s been already made.<br />'; 
 }
 
-$query = 
-"CREATE TABLE image
-(
-	Id int(32) NOT NULL AUTO_INCREMENT,
-	UId int(11) NOT NULL,
-        Privacy int(1) NOT NULL,
-	URL varchar(1500) DEFAULT NULL,
-        Date timestamp DEFAULT CURRENT_TIMESTAMP,
-
-	PRIMARY KEY (Id)
-);";
-
-$statement = $db->prepare($query);
-$success = $statement->execute();
-
-if($success)
-{
-    echo 'Image table has been successfully created<br />';
-}
-else 
-{
-    echo 'Creating Status table failed or it\'s been already made.<br />'; 
-}
 ?>

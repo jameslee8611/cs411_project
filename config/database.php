@@ -6,6 +6,6 @@
  */
 
 define('Host', 'localhost');
-define('DBName', 'AllinOne');
+define('DBName', 'Comjob');
 define('DBUser', 'root');
 define('DBPassword', 'root');
