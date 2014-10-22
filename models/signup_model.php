@@ -25,8 +25,10 @@ class signup_model extends Model {
     	$statement = $this->db->prepare($query);
     	$success = $statement->execute();
 
-    	if($success)
-            return TRUE;    
+    	if($success){
+    		$result = array('username' => $_POST['email'], 'password' => $_POST['password']);
+            return $result;
+        }
         else 
             return NULL;
     }

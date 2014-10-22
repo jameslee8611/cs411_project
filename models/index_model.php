@@ -15,7 +15,9 @@ class Index_Model extends Model {
     {
         $username = $_POST['username'];
         $password = md5($_POST['password']);
-        
+
+        echo $username;
+
         if (empty($username) && empty($password))
         {
             return FALSE;
