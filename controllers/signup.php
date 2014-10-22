@@ -17,7 +17,12 @@ class signup extends Controller {
         parent::__construct();
     }
     
-    function index() {
+    public function index() {
         $this->view->render('signup/index');
+    }
+
+    public function signup(){
+    	$this->model->signup();
+    	
     }
 }

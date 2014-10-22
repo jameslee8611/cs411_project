@@ -9,16 +9,12 @@
 		</section>
 
 		<section id = "profileBox">
-			<form id="form" class="minimal" method="post" action="">
+			<form id="form" class="minimal" method="post" action="signup/signup">
 				<div style = "text-align: center">
 				    <label><input type="radio" name="position" value="student" id="student" align='center' />Student</label>
-				    <label><input type="radio" name="position" value="recuritor" id="recruitor" align='center' />Recruitor</label>
+				    <label><input type="radio" name="position" value="recruiter" id="recruiter" align='center' />Recruiter</label>
 				</div>
 				<div style = "text-align: center">
-				   	<label for="username">
-						Username:
-					<input type="text" name="username" id="username" required="required" />
-					</label>
 					<label for="eamil">
 						E-Mail:
 					<input type="email" name="email" id="email" required="required" />
