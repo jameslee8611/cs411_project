@@ -10,4 +10,10 @@ class Index_Model extends Model {
     {
         parent::__construct();
     }
+    
+    public function login()
+    {
+        //db communication
+        return 1;
+    }
 }

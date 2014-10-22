@@ -15,4 +15,10 @@ class Index extends Controller {
     {   
         $this->view->render('index/index');
     }
+    
+    public function login() {
+        $result = $this->model->login();
+        $this->view->data = $result;
+        $this->view->render('signup/login');
+    }
 }

@@ -20,10 +20,4 @@ class signup extends Controller {
     function index() {
         $this->view->render('signup/index');
     }
-    
-    function login() {
-        $result = $this->model->login();
-        $this->view->data = $result;
-        $this->view->render('signup/login');
-    }
 }
