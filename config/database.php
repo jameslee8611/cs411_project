@@ -1,6 +1,6 @@
 <?php
 
 define('Host', 'localhost');
-define('DBName', 'comjob');
+define('DBName', 'Comjob');
 define('DBUser', 'root');
-define('DBPassword', '');
+define('DBPassword', 'root');
