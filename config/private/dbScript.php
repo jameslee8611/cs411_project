@@ -22,7 +22,7 @@ $query =
 "CREATE TABLE Student
 (
 	userID int(11) NOT NULL AUTO_INCREMENT,
-	password varchar(25) NOT NULL,
+	password varchar(50) NOT NULL,
 	profilePicture varchar(32) DEFAULT NULL,
 	name varchar(32) NOT NULL,
 	email varchar(32) NOT NULL,
