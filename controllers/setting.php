@@ -18,12 +18,34 @@ class Setting extends Controller {
     
     public function withdrawAccount()
     {
+        $result = $this->model->withdrawAccount();
         
+        if ($result)
+        {
+            header('Location: ' .URL.'index/logout');
+            exit;
+        }
+        else
+        {
+            header('Location: ' .URL.'error/login');
+            exit;
+        }
     }
     
-    public function modifyInfo()
+    public function changePassword()
     {
+        $result = $this->model->changePassword();
         
+        if ($result == TRUE)
+        {
+            header('Location: ' .URL.'jobboard/');
+            exit;
+        }
+        else
+        {
+            header('Location: ' .URL.'error/login');
+            exit;
+        }
     }
     
     private function isLoggedIn()
@@ -31,7 +53,7 @@ class Setting extends Controller {
         if (!Session::get('loggedIn'))
         {
             header('Location: ' .URL.'error/login');
-            die();
+            exit;
         }
     }
 }

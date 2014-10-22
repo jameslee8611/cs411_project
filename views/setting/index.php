@@ -5,26 +5,34 @@
     </div>
     
     <div>
-        <section id="loginBox">
-            <h2>Login</h2>
-            <form method="post" class="minimal" action="index/login">
-                <label for="username">
-                    Username:
-                    <input type="text" name="username" id="username" required="required" />
+        <section id="changePasswordBox">
+            <h2>Change Password</h2>
+            <form method="post" class="minimal" action="setting/changePassword">
+                <label for="current_password">
+                    Current Password:
+                    <input type="password" name="current_password" id="current_password" required="required" />
                 </label>
-                <label for="password">
-                    Password:
-                    <input type="password" name="password" id="password" required="required" />
+                <label for="new_password">
+                    New Password:
+                    <input type="password" name="new_password" id="new_password" required="required" />
                 </label>
-                <button type="submit" class="btn-submit">Sign in</button>
+                <label for="confirm_password">
+                    Confirm Password:
+                    <input type="password" name="confirm_password" id="confirm_password" required="required" />
+                </label>
+                <button type="submit" class="btn-submit">Change</button>
             </form>
         </section>
-        <section id = "newUserBox">
-            <h3>Are you a new user?
-                <form method="post" action="signup">
-                    <button type="newUser" class="btn-newUser">New User</button>
-                </form>
-            </h3>
+        
+        <section id="withdrawAccountBox">
+            <h2>Withdraw Account</h2>
+            <form method="post" class="minimal" action="setting/withdrawAccount">
+                <label for="username">
+                    Password:
+                    <input type="password" name="current_password" id="current_password" required="required" />
+                </label>
+                <button type="submit" class="btn-submit">Withdraw</button>
+            </form>
         </section>
     </div>
 </div>

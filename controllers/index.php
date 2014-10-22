@@ -13,6 +13,11 @@ class Index extends Controller {
 
     public function index() 
     {   
+        if (Session::get('loggedIn'))
+        {
+            $this->redirecttoJobBoard();
+        }
+        
         $this->view->render('index/index');
     }
     
@@ -21,13 +26,25 @@ class Index extends Controller {
         
         if ($result == TRUE)
         {
-            header('Location: ' .URL.'jobboard/');
-            die();
+            $this->redirecttoJobBoard();
         }
         else
         {
             header('Location: ' .URL.'error/login');
-            die();
+            exit;
         }
+    }
+    
+    public function logout() {
+        Session::destroy();
+        
+        header('Location: ' .URL);
+        exit;
+    }
+    
+    private function redirecttoJobBoard()
+    {
+        header('Location: ' .URL.'jobboard/');
+        exit;
     }
 }

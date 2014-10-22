@@ -1,3 +1,5 @@
+<h2><?php echo md5('12341234'); ?></h2>
+
 <section id = "titleBox">
     <h1>Let us find you a COMJOB</h1>
 </section>
