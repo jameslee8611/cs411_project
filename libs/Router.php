@@ -30,7 +30,7 @@ class Router {
             }
             else
             {
-                $this->usernameURL($url);
+                $this->redirect_to_error();
             }
         }
         
@@ -86,28 +86,6 @@ class Router {
         {
             $controller->index();
         }
-    }
-
-    /**
-     * If the followed url after main address is not controller, guess that it's the ueser's profile page
-     * @param type $url
-     */
-    private function usernameURL($url)
-    {   
-        if (count($url) > 2)
-        {
-            $this->redirect_to_error();
-        }
-        elseif (strcmp($url[0] ,SETTING) == 0)
-        {
-            require 'controllers/setting.php';   
-            $controller = new Setting();
-            $controller->loadModule('setting');
-            
-            $controller->index();
-        }
-            
-        exit;
     }
     
     /**

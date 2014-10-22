@@ -13,7 +13,39 @@ class Index_Model extends Model {
     
     public function login()
     {
-        //db communication
-        return 1;
+        $username = $_POST['username'];
+        $password = md5($_POST['password']);
+        
+        if (empty($username) && empty($password))
+        {
+            return FALSE;
+        }
+        else
+        {
+            
+            $statement = $this->db->prepare("
+                SELECT *
+                FROM (
+                    SELECT email, password FROM Student
+                    UNION all
+                    SELECT email, password FROM Recruiter
+                ) table1
+                WHERE email = '$username' AND password = '$password'
+            ");
+
+            $success = $statement->execute();
+
+            if ($success && !empty($statement->fetchAll())) 
+            {
+                Session::set('loggedIn', true);
+                Session::set('username', $username);
+                
+                return TRUE;
+            } 
+            else 
+            {
+                return FALSE;
+            }
+        }
     }
 }

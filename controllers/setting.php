@@ -8,12 +8,6 @@ class Setting extends Controller {
 
     function __construct() {
         parent::__construct();
-        
-        if(Session::get('loggedIn') == null)
-        {
-            $this->view->render('error/index');
-            exit;
-        }
     }
 
     public function index()

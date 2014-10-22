@@ -18,7 +18,16 @@ class Index extends Controller {
     
     public function login() {
         $result = $this->model->login();
-        $this->view->data = $result;
-        $this->view->render('signup/login');
+        
+        if ($result == TRUE)
+        {
+            header('Location: ' .URL.'jobboard/');
+            die();
+        }
+        else
+        {
+            header('Location: ' .URL.'error/login');
+            die();
+        }
     }
 }

@@ -1,10 +1,5 @@
 <?php
 
-/* 
- * @author  Seungchul Lee, Jiwwong Yoon
- * @Date    July 23, 2014
- */
-
 require '../../libs/Router.php';
 require '../../libs/Controller.php';
 require '../../libs/View.php';
