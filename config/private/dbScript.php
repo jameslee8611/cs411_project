@@ -99,27 +99,4 @@ else
     echo 'Creating Wall table failed or it\'s been already made.<br />'; 
 }
 
-$query = 
-"CREATE TABLE Job
-(
-	Id int(32) NOT NULL AUTO_INCREMENT,
-	UId int(11) NOT NULL,
-	Comment varchar(500) DEFAULT NULL,
-        Date timestamp DEFAULT CURRENT_TIMESTAMP,
-
-	PRIMARY KEY (Id)
-);";
-
-$statement = $db->prepare($query);
-$success = $statement->execute();
-
-if($success)
-{
-    echo 'Comment table has been successfully created.<br />';
-}
-else 
-{
-    echo 'Creating Comment table failed or it\'s been already made.<br />'; 
-}
-
 ?>
