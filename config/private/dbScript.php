@@ -26,12 +26,12 @@ $query =
 	profilePicture varchar(32) DEFAULT NULL,
 	name varchar(32) NOT NULL,
 	email varchar(32) NOT NULL,
-        personalLink varchar(50) DEFAULT NULL,
-        phoneNumber varchar(32) NOT NULL,
-        address varchar(32) DEFAULT NULL,
-        visaStatus varchar(11) DEFAULT NULL,
-        school varchar(32) DEFAULT NULL,
-        resume varchar(32) NOT NULL,
+	personalLink varchar(50) DEFAULT NULL,
+	phoneNumber varchar(32) NOT NULL,
+	address varchar(32) DEFAULT NULL,
+	visaStatus varchar(11) DEFAULT NULL,
+	school varchar(32) DEFAULT NULL,
+	resume varchar(32) NOT NULL,
         
 	PRIMARY KEY (userID)
 );";
@@ -57,7 +57,7 @@ $query =
 	profilePicture varchar(32) DEFAULT NULL,
 	name varchar(32) NOT NULL,
 	email varchar(32) NOT NULL,
-        personalLink varchar(50) DEFAULT NULL,
+	personalLink varchar(50) DEFAULT NULL,
 
 	PRIMARY KEY (userID)
 );";
@@ -76,15 +76,21 @@ else
 
 
 $query = 
-"CREATE TABLE wall
+"CREATE TABLE Job
 (
-	Id int(32) NOT NULL AUTO_INCREMENT,
-	WhereId int(25) DEFAULT 0,
-	Type varchar(10) NOT NULL,
-	ContentId int(32) DEFAULT 0,
-        PId int(32) DEFAULT 0,
-        
-	PRIMARY KEY (Id)
+	jobID int(11) NOT NULL AUTO_INCREMENT,
+	postedDate int(11) NOT NULL,
+	title varchar(32) NOT NULL,
+	companyName varchar(50) NOT NULL,
+	type varchar(32) NOT NULL,
+	area varchar(32) NOT NULL,
+	description varchar(10000) NOT NULL,
+	location varchar(32) NOT NULL,
+	requredSkill varchar(100) NOT NULL,
+	salary varchar(32) DEFAULT NULL,
+	seekerVisaType varchar(32) DEFAULT NULL,
+
+	PRIMARY KEY (jobID)
 );";
 
 $statement = $db->prepare($query);
@@ -92,11 +98,35 @@ $success = $statement->execute();
 
 if($success)
 {
-    echo 'Wall table has been successfully created.<br />';
+    echo 'Job table has been successfully created.<br />';
 }
 else 
 {
-    echo 'Creating Wall table failed or it\'s been already made.<br />'; 
+    echo 'Creating Job table failed or it\'s been already made.<br />'; 
+}
+
+
+$query =
+"CREATE TABLE Company
+(
+	name varchar(50) NOT NULL,
+	numberOfEmployees int(11) NOT NULL,
+	description varchar(10000) NOT NULL,
+	url varchar(500) DEFAULT NULL,
+
+	PRIMARY KEY (name)
+);";
+
+$statement = $db->prepare($query);
+$success = $statement->execute();
+
+if($success)
+{
+    echo 'Company table has been successfully created.<br />';
+}
+else 
+{
+    echo 'Creating Company table failed or it\'s been already made.<br />'; 
 }
 
 ?>
