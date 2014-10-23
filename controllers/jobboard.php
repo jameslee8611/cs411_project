@@ -20,6 +20,7 @@ class jobboard extends Controller {
     
     public function index()
     {
+        $this->view->data = $this->model->getJob();
         $this->view->render('jobboard/index');
     }
     
