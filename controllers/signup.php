@@ -21,18 +21,6 @@ class signup extends Controller {
         $this->view->render('signup/index');
     }
 
-    public function signup() {
-        $status = $this->model->signup();
-        if ($status) 
-        {
-            header('Location: ' . URL);
-            die();
-        } 
-        else 
-        {
-            header('Location: ' . URL . 'error/login');
-            die();
-        }
-    }
+    
 
 }
