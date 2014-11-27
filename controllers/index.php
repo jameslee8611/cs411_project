@@ -11,6 +11,8 @@ class Index extends Controller {
         parent::__construct();
     }
 
+    // public methods
+    
     public function index() 
     {   
         if (Session::get('loggedIn'))
@@ -41,6 +43,8 @@ class Index extends Controller {
         header('Location: ' .URL);
         exit;
     }
+    
+    // private methods
     
     private function redirecttoJobBoard()
     {
