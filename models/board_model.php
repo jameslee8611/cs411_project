@@ -11,7 +11,7 @@
  *
  * @author jameslee8611
  */
-class jobboard_model extends Model {
+class board_model extends Model {
     
     function __construct() {
         parent::__construct();

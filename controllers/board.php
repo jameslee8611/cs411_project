@@ -11,17 +11,17 @@
  *
  * @author jameslee8611
  */
-class jobboard extends Controller {
+class board extends Controller {
     
     function __construct() {
         parent::__construct();
         $this->isLoggedIn();
     }
     
-    public function index()
+    public function jobBoard()
     {
         $this->view->data = $this->model->getJob();
-        $this->view->render('jobboard/index');
+        $this->view->render('board/jobBoard');
     }
     
     private function isLoggedIn()

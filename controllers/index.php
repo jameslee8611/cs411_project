@@ -48,7 +48,7 @@ class Index extends Controller {
     
     private function redirecttoJobBoard()
     {
-        header('Location: ' .URL.'jobboard/');
+        header('Location: ' .URL.'board/jobBoard');
         exit;
     }
 
