@@ -15,22 +15,4 @@ class signup_model extends Model {
     function __construct() {
         parent::__construct();
     }
-
-    public function signup(){
-    	$email = $_POST['email'];
-    	$password = md5($_POST['password']);
-    	$position = $_POST['position'];
-
-    	$query = "INSERT INTO $position (email, password) VALUES('$email', '$password')";
-    	$statement = $this->db->prepare($query);
-    	$success = $statement->execute();
-
-    	if($success){
-    		$result = array('username' => $_POST['email'], 'password' => $_POST['password']);
-            return $result;
-        }
-        else 
-            return NULL;
-    }
-
 }

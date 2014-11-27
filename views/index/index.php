@@ -1,26 +1,25 @@
-<h2><?php echo md5('12341234'); ?></h2>
-
-<section id = "titleBox">
-    <h1>Let us find you a COMJOB</h1>
-</section>
-<section id="loginBox">
-    <h2>Login</h2>
-    <form method="post" class="minimal" action="index/login">
-        <label for="username">
-            Username:
-            <input type="text" name="username" id="username" required="required" />
-        </label>
-        <label for="password">
-            Password:
-            <input type="password" name="password" id="password" required="required" />
-        </label>
-        <button type="submit" class="btn-submit">Sign in</button>
+<div class="row" id="header">
+    <div class="col-lg-6"></div>
+    <form class="navbar-form navbar-right col-lg-6" method="post" action="index/login">
+        <input type="text" name="username" class="form-control" id="username" placeholder="Username" required="required" />
+        <input type="password" name="password" class="form-control" id="password" placeholder="Password" required="required" autocomplete="off" />
+        <input type="submit" class="form-control" value="Login"/>
     </form>
-</section>
-<section id = "newUserBox">
-    <h3>Are you a new user?
-        <form method="post" action="signup">
-            <button type="newUser" class="btn-newUser">New User</button>
+</div>
+
+<div class="row" id="index-body">
+    <div class="col-lg-6">
+        <h2 class="no-margin">Let us find you a COMJOB</h2>
+    </div>
+    <div class="col-lg-2"></div>
+    <div class="col-lg-4" id="signup">
+        <form method="post" action="index/signup">
+            <input type="radio" name="position" value="student" id="student" checked/><label for="student">Student</label>
+            <input type="radio" name="position" value="recruiter" id="recruiter"/><label for="recruiter">Recruiter</label>
+            <input type="email" name="username" class="form-control" id="username" placeholder="Email" required="required" autocomplete="off" />
+            <input type="password" name="password" class="form-control" id="password" placeholder="Password" required="required" autocomplete="off" />
+            <input type="password" name="confirmpwd" class="form-control" id="confirmpwd" placeholder="Confirm Password" required="required" autocomplete="off" />
+            <input type="submit" class="form-control" value="Submit"/>
         </form>
-    </h3>
-</section>
+    </div>
+</div>

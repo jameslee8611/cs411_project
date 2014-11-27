@@ -1,0 +1,62 @@
+.no-margin{
+	margin: 0px !important;
+}
+
+#header{
+	background-color: #4E4E4E;
+	padding-right: 15px;
+	padding-left: 15px;
+}
+
+#header form{
+	margin-top: 15px;
+	margin-bottom: 15px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+#header a{
+	color: white;
+}
+
+#header a:hover{
+	background-color: black;
+}
+
+#content{
+	margin-top: 50px !important;
+}
+
+a{
+	text-decoration: none !important;
+}
+
+label{
+	margin: 0px !important;
+}
+
+input[type=radio] + label{
+	cursor: pointer;
+	color: white;
+	background-color: #4E4E4E;
+	padding: 0.5rem;
+	border-radius: 0.5rem;
+}
+
+input[type=radio]{
+	display: none;
+}
+
+input[type=radio]:checked + label{
+	background-color: black;
+}
+
+input[type=submit], button{
+	cursor: pointer;
+	color: white !important;
+	background-color: #4E4E4E !important;
+}
+
+input[type=submit]:hover, button:hover{
+	background-color: black !important;
+}

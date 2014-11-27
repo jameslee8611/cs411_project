@@ -51,4 +51,19 @@ class Index extends Controller {
         header('Location: ' .URL.'jobboard/');
         exit;
     }
+
+    public function signup() {
+        $status = $this->model->signup();
+        if ($status) 
+        {
+            $this->login();
+            //header('Location: ' . URL);
+            //die();
+        } 
+        else 
+        {
+            header('Location: ' . URL . 'error/login');
+            die();
+        }
+    }
 }
