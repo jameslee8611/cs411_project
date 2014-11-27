@@ -54,11 +54,10 @@ class Index extends Controller {
 
     public function signup() {
         $status = $this->model->signup();
+        
         if ($status) 
         {
             $this->login();
-            //header('Location: ' . URL);
-            //die();
         } 
         else 
         {

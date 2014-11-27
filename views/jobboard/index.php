@@ -8,22 +8,6 @@
     </ul>
 </nav>
 
-<<<<<<< HEAD
-<div>
-    <a href="<?php echo URL.'index/logout'; ?>">log out</a>
-    <a href="<?php echo URL.'setting'; ?>">Edit Page</a>
-</div>
-
-<div>
-    <h3>Jobs</h3>
-    <ul>
-        <?php 
-        foreach ($this->data as $info) {
-            echo '<li>'.$info['title']. ' by '. $info['companyName'] .'</li>';
-        }
-        ?>
-    </ul>
-=======
 <div class="row" id="content">
 	<div class="col-lg-3">
 		<h2>Job Board</h2>
@@ -70,10 +54,9 @@
 		<?php
 		    if (isset($this->data) || !empty($this->data)) {
 		        foreach ($this->data as $info) {
-		        	echo '<div>' . "Company: " . $info['company'] . '  ' . "Title: " . $info['title'] . '  ' . "Type: " . $info['type'] . '  Description: ' . $info['description'] . "  " . "Salary: " . $info['salary'] . '</div>';
+		        	echo '<div>' . "Company: " . $info['companyName'] . '  ' . "Title: " . $info['title'] . '</div>';
 		        }
 		    }
 		?>
 	</div>
->>>>>>> 1ce7f5ce0035df3c4f6d2999cdf8f2c9e8a71f74
 </div>

@@ -49,7 +49,7 @@ class Index_Model extends Model {
         }
     }
 
-    public function signup(){
+    public function signup() {
         $email = $_POST['username'];
         $password = md5($_POST['password']);
         $position = $_POST['position'];
@@ -58,11 +58,11 @@ class Index_Model extends Model {
         $statement = $this->db->prepare($query);
         $success = $statement->execute();
 
-        if($success){
-            $result = array('username' => $_POST['email'], 'password' => $_POST['password']);
-            return $result;
+        if ($success) {
+            return true;
         }
-        else 
-            return NULL;
+        else {
+            return false;
+        }
     }
 }
