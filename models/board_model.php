@@ -63,9 +63,10 @@ class board_model extends Model {
         else 
         {
             echo 'Error occurred while getting createFilterQuery!<br />';
-            echo 'query statement<br />';
+            echo '- in getjob() at board_model from board_controller<br /><br />';
+            echo 'Possible error detail: <br />';
+            echo '1. query statement<br />';
             echo $this->createFilterQuery($preference, $category) . '<br />';
-            echo '- in getjob() at board_model from board_controller<br />';
             exit;
         }
 
