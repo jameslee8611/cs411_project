@@ -44,7 +44,23 @@ class Setting extends Controller {
         
         if ($result == TRUE)
         {
-            header('Location: ' .URL.'jobboard/');
+            header('Location: ' .URL.'board/jobboard/');
+            exit;
+        }
+        else
+        {
+            header('Location: ' .URL.'error/login');
+            exit;
+        }
+    }
+    
+    public function updateRecruiterInfo()
+    {
+        $result = $this->model->updateRecruiterInfo();
+        
+        if ($result == TRUE)
+        {
+            header('Location: ' .URL.'board/recruiterBoard/');
             exit;
         }
         else

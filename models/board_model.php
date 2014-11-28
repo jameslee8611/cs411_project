@@ -46,6 +46,38 @@ class board_model extends Model {
         return $result;
     }
     
+    public function getUserInfo()
+    {
+        $status = (Session::get('isStudent')) ? 'Student' : 'Recruiter';
+        $email = Session::get('userId');
+        $statement = $this->db->prepare("
+                        SELECT *
+                        FROM $status
+                        WHERE userId = '$email';
+                    ");
+        $success = $statement->execute();
+        $user = $statement->fetchAll();
+        
+        if (!$success || empty($user)) {
+            echo "Error Occurs while query user data\r\n"
+                ."\t getUserInfo() in Board Model\r\n"
+                ."\t\t recruiterBoard() or jobBoard() in Board Controller";
+            exit;
+        }
+        
+        $result = '{}';
+        if (!Session::get('isStudent')) {
+            $result = '{"firstname": "'. $user[0]['firstname'] .'", "lastname": "'. $user[0]['lastname'] .'", "email": "'. $user[0]['email'] .'", "personalLink": "'. $user[0]['personalLink'] .'"}';
+        }
+        else {
+            
+        }
+        
+        return json_decode($result, true);
+    }
+    
+    // private functions
+    
     private function formatter($title, $companyName) 
     {
         $result = '{
