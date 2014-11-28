@@ -19,11 +19,25 @@ class board_model extends Model {
     
     public function getJob()
     {
+        $username = Session::get('username');
+
         $statement = $this->db->prepare("
-            SELECT title, companyName
-            FROM Job
-            WHERE 1
+            SELECT userID FROM Student WHERE email = '$username'
         ");
+        $success = $statement->execute();
+        $uID = $statement->fetch()['userID'];
+
+        $statement = $this->db->prepare("
+            SELECT * FROM PREFERENCE WHERE uID = '$uID'
+        ");
+        $success = $statement->execute();
+        $preference = $statement->fetch();
+
+        $category = array('salary', 'requiredSkill', 'area', 'level', 'type','seekerVisaType');
+
+        $query = $this->createFilterQuery($preference, $category);
+
+        $statement = $this->db->prepare($query);
 
         $success = $statement->execute();
         
@@ -34,7 +48,7 @@ class board_model extends Model {
 
             foreach ($query as $row) 
             {
-                array_push($result, $this->formatter($row['title'], $row['companyName']));
+                array_push($result, $this->formatter($row['jobID'], $row['title'], $row['companyName'], $row['description'], $row['location'], $row['postedDate']));
             }
         } 
         else 
@@ -78,13 +92,31 @@ class board_model extends Model {
     
     // private functions
     
-    private function formatter($title, $companyName) 
+    private function formatter($jobID, $title, $companyName, $description, $location, $postedDate) 
     {
         $result = '{
+                        "jobID": "' . $jobID . '",
                         "title": "' . $title . '",
-                        "companyName": "'. $companyName . '"';
+                        "companyName": "'. $companyName . '",
+                        "description": "'. $description . '",
+                        "location": "' . $location . '",
+                        "postedDate": "' . $postedDate . '"';
         $result .=  ' }';
         
         return json_decode($result, true);
+    }
+
+    private function createFilterQuery($preference, $category)
+    {
+        $length = count($category);
+        $query = "SELECT jobID, title, companyName, location, description, postedDate FROM Job WHERE salary >= $preference[0]";
+
+        for($i=1; $i<$length; $i++){
+            if($preference[$i] != NULL or $preference[$i] != ''){
+                $query = $query . " AND $category[$i] = '$preference[$i]'";
+            }
+        }
+
+        return $query;
     }
 }

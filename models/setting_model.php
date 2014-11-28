@@ -74,6 +74,61 @@ class Setting_Model extends Model {
             }
         }
     }
+
+    public function updatePreference()
+    {
+        $username = Session::get('username');
+        $minSalary = $_POST['min-salary'];
+        $primarySkill = $_POST['skill-primary'];
+        $area = $_POST['area'];
+        $level = $_POST['level'];
+        $position = $_POST['position'];
+        $visa = $_POST['visa'];
+
+        $statement = $this->db->prepare("
+            SELECT userID FROM Student WHERE email = '$username'
+        ");
+        $statement->execute();
+        $uID = $statement->fetch()['userID'];
+
+        $statement = $this->db->prepare("
+            UPDATE PREFERENCE SET minSalary = '$minSalary', primarySkill = '$primarySkill', area = '$area', 
+            level = '$level', position = '$position', visa = '$visa' WHERE uID = '$uID'
+        ");
+        $statement->execute();
+
+        if($statement){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public function updateProfile()
+    {
+        $username = Session::get('username');
+        $firstname = $_POST['firstname'];
+        $lastname = $_POST['lastname'];
+        $phoneNumber = $_POST['phonenum'];
+        $personalLink = $_POST['personallink'];
+        $address = $_POST['address'];
+        $school = $_POST['school'];
+        $visa = $_POST['profile-visa'];
+
+        $statement = $this->db->prepare("
+            UPDATE STUDENT SET firstname = '$firstname', lastname = '$lastname', phoneNumber = '$phoneNumber', personalLink = '$personalLink', 
+            school = '$school', visaStatus = '$visa', address = '$address' WHERE email = '$username'
+        ");
+        $statement->execute();
+
+        if($statement){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
     
     public function updateRecruiterInfo()
     {

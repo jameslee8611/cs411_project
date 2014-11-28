@@ -1,6 +1,6 @@
 <nav class="navbar navbar-fixed-top" id="header" role="navigation">
     <ul class="nav navbar-nav navbar-left">
-        <li><a href="<?php echo URL.'jobboard'; ?>">JobBoard</a></li>
+        <li><a href="<?php echo URL.'board/jobboard'; ?>">JobBoard</a></li>
     </ul>               
     <ul class="nav navbar-nav navbar-right">
         <li><a href="<?php echo URL.'setting'; ?>"><?php echo Session::get("username");?></a></li>
@@ -53,15 +53,24 @@
 
     <div class="col-lg-6" id="profileResume">
         <h2>Profile/Resume</h2>
-        <form method="post">
+        <form method="post" action="setting/updateProfile">
             <label>First Name: <input type="text" name="firstname" class="form-control" id="firstname" /></label>
             <label>Last Name: <input type="text" name="lastname" class="form-control" id="lastname" /></label></br>
 
             <label>Phone Number: <input type="number" name="phonenum" class="form-control" id="phonenum" /></label>
             <label>Email: <input type="text" name="email" class="form-control" id="email" /></label></br>
 
-            <label>Websites: <input type="text" name="website" class="form-control" id="website" /></label>
-            <label>Repository: <input type="text" name="repo" class="form-control" id="repo" /></label></br>
+            <label>Personal Link: <input type="text" name="personallink" class="form-control" id="personallink" /></label>
+            <label>School: <input type="text" name="school" class="form-control" id="school" /></label></br>
+
+            <label>Address: <input type="text" name="address" class="form-control" id="address" /></label></br>
+            <label for="visa_type">Visa Type:</label></br>
+            <div class="btn-group" name="profile_visa_type">
+                <label><select class="form-control" name="profile-visa" id="profile-visa"/>
+                    <option value="" selected>Visa</option>
+                    <option value="F1">F1</option>
+                </select></label>
+            </div></br>
 
             <label>Resume: <input type="file" name="resume" class="form-control" id="resume"  accept=".pdf"/></label></br>
 
@@ -71,30 +80,38 @@
 
     <div class="col-lg-6" id="searchPref">
         <h2>Search Preferences</h2>
-        <form method="post">
+        <form method="post" action="setting/updatePreference">
             <label>Minimum Salary: <input type="number" name="min-salary" class="form-control" id="min-salary"/></label></br>
             
             <div name="skill-box">
                 <label>Primary Skill: <input type="text" name="skill-primary" class="form-control" id="skill-primary" /></label>
-                <label>Secondary Skill: <input type="text" name="skill-secondary" class="form-control" id="skill-secondary" /></label>
+                <label>Area: <input type="text" name="area" class="form-control" id="area" /></label>
             </div>
             
-            <label for="location-box">Location:</label></br>
-            <div class="btn-group" name="location-box">
-                <label><select class="form-control" name="state" id="state"/>
-                    <option id="first_cagetory" value="" selected>State</option>
-                    <option value="AK">AK</option>
-                    <option value="AL">AL</option>
-                    <option value="AR">AR</option>
-                    <option value="AZ">AZ</option>
+            <label for="level-box">Level:</label></br>
+            <div class="btn-group" name="level-box">
+                <label><select class="form-control" name="level" id="level"/>
+                    <option value="" selected>Level</option>
+                    <option value="Entry">Entry</option>
+                    <option value="Junior">Junior</option>
+                    <option value="Senior">Senior</option>
                 </select></label>
-                <label><input type="text" name="city" class="form-control" id="city" placeholder="City"/></label>
             </div></br>
             
+            <label for="position-box">Position:</label></br>
+            <div class="btn-group" name="position-box">
+                <label><select class="form-control" name="position" id="position"/>
+                    <option id="first_position" value="" selected>Position</option>
+                    <option value="Full Time">Full Time</option>
+                    <option value="Contract">Contract</option>
+                    <option value="Internship">Internship</option>
+                </select></label>
+            </div></br>
+
             <label for="visa_type">Visa Type:</label></br>
             <div class="btn-group" name="visa_type">
-                <label><select class="form-control" name="visa" id="visa"/>
-                    <option id="first_cagetory" value="" selected>Visa</option>
+                <label><select class="form-control" name="search-visa" id="search-visa"/>
+                    <option value="" selected>Visa</option>
                     <option value="F1">F1</option>
                 </select></label>
             </div></br>

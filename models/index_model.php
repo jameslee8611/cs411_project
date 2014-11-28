@@ -68,6 +68,18 @@ class Index_Model extends Model {
         $statement = $this->db->prepare($query);
         $success = $statement->execute();
 
+        if($position == "student") {
+            $query = "SELECT userID FROM STUDENT WHERE email = '$email'";
+            $statement = $this->db->prepare($query);
+            $success = $statement->execute();
+            $result = $statement->fetch();
+            $user_id = $result["userID"];
+
+            $query = "INSERT INTO PREFERENCE (uID) VALUES($user_id)";
+            $statement = $this->db->prepare($query);
+            $success = $statement->execute();
+        }
+
         if ($success) {
             return true;
         }
