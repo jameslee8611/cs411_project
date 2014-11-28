@@ -24,6 +24,12 @@ class board extends Controller {
         $this->view->render('board/jobBoard');
     }
     
+    public function recruiterBoard()
+    {
+        $this->view->userId = Session::get('userId');
+        $this->view->render('board/recruiterBoard');
+    }
+    
     private function isLoggedIn()
     {
         if (!Session::get('loggedIn'))

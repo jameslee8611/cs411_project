@@ -1,6 +1,8 @@
 <div class="row" id="header">
     <div class="col-lg-6"></div>
     <form class="navbar-form navbar-right col-lg-6" method="post" action="index/login">
+        <input type="radio" name="position" value="student_login" id="student_login" checked/><label for="student_login">Student</label>
+        <input type="radio" name="position" value="recruiter_login" id="recruiter_login"/><label for="recruiter_login">Recruiter</label>
         <input type="text" name="username" class="form-control" id="username" placeholder="Username" required="required" />
         <input type="password" name="password" class="form-control" id="password" placeholder="Password" required="required" autocomplete="off" />
         <input type="submit" class="form-control" value="Login"/>
