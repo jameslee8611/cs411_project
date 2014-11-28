@@ -1,0 +1,10 @@
+#searchbar input{
+	width: 90.2%;
+	margin-top: 20px;
+	display: inline-block;
+}
+
+#searchbar #search{
+	width: auto;
+	display: inline-block;
+}
