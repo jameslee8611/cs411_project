@@ -15,6 +15,7 @@ class Index_Model extends Model {
     {
         $username = $_POST['username'];
         $password = md5($_POST['password']);
+        $position;
         if (empty($_POST['position']) || !isset($_POST['position'])) {
             $position = explode("_", $_POST['student_login'][0]);
         }

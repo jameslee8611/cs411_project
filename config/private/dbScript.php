@@ -48,8 +48,9 @@ $query =
 "CREATE TABLE Recruiter
 (
 	userID int(11) NOT NULL AUTO_INCREMENT,
-	password varchar(25) NOT NULL,
-	name varchar(32) NOT NULL,
+	password varchar(50) NOT NULL,
+	lastname varchar(32) DEFAULT NULL,
+        firstname varchar(32) DEFAULT NULL,
 	email varchar(32) NOT NULL,
 	personalLink varchar(50) DEFAULT NULL,
 
