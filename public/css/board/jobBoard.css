@@ -1,0 +1,26 @@
+a{
+	cursor: pointer;
+}
+
+.jobID{
+	display: none;
+}
+
+#searchbar input{
+	width: 90%;
+	margin-top: 20px;
+	display: inline-block;
+}
+
+#searchbar #search{
+	width: auto;
+	display: inline-block;
+}
+
+#job-container tr{
+	border-bottom: 1px solid #4E4E4E;
+}
+
+#job-container{
+	border-top: 1px solid #4E4E4E;
+}

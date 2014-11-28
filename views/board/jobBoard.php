@@ -1,6 +1,6 @@
 <nav class="navbar navbar-fixed-top" id="header" role="navigation">
 	<ul class="nav navbar-nav navbar-left">
-        <li><a href="<?php echo URL.'jobboard'; ?>">JobBoard</a></li>
+        <li><a href="<?php echo URL.'board/jobboard'; ?>">JobBoard</a></li>
     </ul>             
     <ul class="nav navbar-nav navbar-right">
         <li><a href="<?php echo URL.'setting'; ?>"><?php echo Session::get("username");?></a></li>
@@ -37,7 +37,7 @@
 				<td><input type="radio" name="job-type" id="full"/><label for="full">Full Time</label></td>
 				<td><input type="radio" name="job-type" id="contract"/><label for="contract">Contract</label></td>
 				<td><input type="radio" name="job-type" id="intern"/><label for="intern">Internship</label></td>
-				<td><input type="radio" name="job-type" id="other"/><label for="intern">Other</label></td>
+				<td><input type="radio" name="job-type" id="other"/><label for="other">Other</label></td>
 			</tr>
 		</table>
 
@@ -45,7 +45,7 @@
 	<div class="col-lg-6">
 
 		<form id="searchbar">
-			<input type="text" class="form-control"/>
+			<input type="text" class="form-control" id="search-input"/>
 			<input type="submit" class="form-control" id="search" value="Search"/>
 		</form>
 
@@ -53,9 +53,13 @@
 
 		<?php
 		    if (isset($this->data) || !empty($this->data)) {
+		    	echo '<table id="job-container"><tbody id="job-body">';
 		        foreach ($this->data as $info) {
-		        	echo '<div>' . "Company: " . $info['companyName'] . '  ' . "Title: " . $info['title'] . '</div>';
+		        	echo '<tr><td>'.'<a class="job-title"><h4>'. $info['title'] . '</h4></a>' . '<div>' . $info['companyName'] . ' ' . $info['location'] . '</div>'
+		        	. '<div class="job-description">'. $info['description'] . '</div>' . '<div>'. $info['postedDate'] . '</div>' . '<div class="jobID">'
+		        	. $info['jobID'] . '</div>' .'</td></tr>';
 		        }
+		        echo '</tbody></table>';
 		    }
 		?>
 	</div>

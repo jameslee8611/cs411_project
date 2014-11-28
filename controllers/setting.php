@@ -56,4 +56,36 @@ class Setting extends Controller {
             exit;
         }
     }
+
+    public function updatePreference()
+    {
+        $result = $this->model->updatePreference();
+
+        if ($result)
+        {
+            header('Location: ' .URL.'setting');
+            exit;
+        }
+        else
+        {
+            header('Location: ' .URL.'error/login');
+            exit;
+        }
+    }
+
+    public function updateProfile()
+    {
+        $result = $this->model->updateProfile();
+
+        if ($result)
+        {
+            header('Location: ' .URL.'setting');
+            exit;
+        }
+        else
+        {
+            header('Location: ' .URL.'error/login');
+            exit;
+        }
+    }
 }

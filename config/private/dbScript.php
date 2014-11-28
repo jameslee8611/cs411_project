@@ -18,8 +18,8 @@ $query =
 (
 	userID int(11) NOT NULL AUTO_INCREMENT,
 	password varchar(50) NOT NULL,
-	profilePicture varchar(32) DEFAULT NULL,
-	name varchar(32) NOT NULL,
+	firstname varchar(32) NOT NULL,
+	lastname varchar(32) NOT NULL,
 	email varchar(32) NOT NULL,
 	personalLink varchar(50) DEFAULT NULL,
 	phoneNumber varchar(32) NOT NULL,
@@ -49,7 +49,6 @@ $query =
 (
 	userID int(11) NOT NULL AUTO_INCREMENT,
 	password varchar(25) NOT NULL,
-	profilePicture varchar(32) DEFAULT NULL,
 	name varchar(32) NOT NULL,
 	email varchar(32) NOT NULL,
 	personalLink varchar(50) DEFAULT NULL,
@@ -79,6 +78,7 @@ $query =
 	companyName varchar(50) NOT NULL,
 	type varchar(32) NOT NULL,
 	area varchar(32) NOT NULL,
+	level varchar(32) NOT NULL,
 	description varchar(10000) NOT NULL,
 	location varchar(32) NOT NULL,
 	requredSkill varchar(100) NOT NULL,
@@ -122,6 +122,32 @@ if($success)
 else 
 {
     echo 'Creating Company table failed or it\'s been already made.<br />'; 
+}
+
+$query =
+"CREATE TABLE Preference
+(
+	minSalary int(50) DEFAULT 0,
+	primarySkill varchar(50) DEFAULT NULL,
+	area varchar(50) DEFAULT NULL,
+	level varchar(50) DEFAULT NULL,
+	position varchar(50) DEFAULT NULL,
+	visa varchar(10) DEFAULT NULL,
+	uID int(50),
+
+	FOREIGN KEY (uID) REFERENCES Student(userID)
+);";
+
+$statement = $db->prepare($query);
+$success = $statement->execute();
+
+if($success)
+{
+    echo 'Preference table has been successfully created.<br />';
+}
+else 
+{
+    echo 'Creating Preference table failed or it\'s been already made.<br />'; 
 }
 
 ?>

@@ -32,4 +32,9 @@ class board extends Controller {
             die();
         }
     }
+
+    public function ajax_getJobList()
+    {
+        print_r(json_encode($this->model->getJob()));
+    }
 }
