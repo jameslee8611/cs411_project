@@ -24,6 +24,8 @@ class Session {
     {
         unset($_SESSION['loggedIn']);
         unset($_SESSION['username']);
+        unset($_SESSION['isStudent']);
+        unset($_SESSION['userId']);
         //session_destroy();
     }
 }

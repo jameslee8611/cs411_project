@@ -1,6 +1,6 @@
 <nav class="navbar navbar-fixed-top" id="header" role="navigation">
 	<ul class="nav navbar-nav navbar-left">
-        <li><a href="<?php echo URL.'jobboard'; ?>">JobBoard</a></li>
+        <li><a href="<?php echo URL.'board/jobboard'; ?>">JobBoard</a></li>
     </ul>             
     <ul class="nav navbar-nav navbar-right">
         <li><a href="<?php echo URL.'setting'; ?>"><?php echo Session::get("username");?></a></li>

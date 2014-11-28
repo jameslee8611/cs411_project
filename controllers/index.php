@@ -17,7 +17,7 @@ class Index extends Controller {
     {   
         if (Session::get('loggedIn'))
         {
-            $this->redirecttoJobBoard();
+            $this->redirecttoJobBoard(Session::get('isStudent'));
         }
         
         $this->view->render('index/index');
@@ -28,7 +28,7 @@ class Index extends Controller {
         
         if ($result == TRUE)
         {
-            $this->redirecttoJobBoard();
+            $this->redirecttoJobBoard(Session::get('isStudent'));
         }
         else
         {
@@ -44,14 +44,6 @@ class Index extends Controller {
         exit;
     }
     
-    // private methods
-    
-    private function redirecttoJobBoard()
-    {
-        header('Location: ' .URL.'board/jobBoard');
-        exit;
-    }
-
     public function signup() {
         $status = $this->model->signup();
         
@@ -64,5 +56,18 @@ class Index extends Controller {
             header('Location: ' . URL . 'error/login');
             die();
         }
+    }
+    
+    // private methods
+    
+    private function redirecttoJobBoard($isStudent)
+    {
+        if ($isStudent) {
+            header('Location: ' .URL.'board/jobBoard');
+        }
+        else {
+            header('Location: ' .URL.'board/recruiterBoard');
+        }
+        exit;
     }
 }

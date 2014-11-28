@@ -15,6 +15,7 @@ class Index_Model extends Model {
     {
         $username = $_POST['username'];
         $password = md5($_POST['password']);
+        $position = explode("_", $_POST['position'])[0];
 
         if (empty($username) && empty($password))
         {
@@ -22,23 +23,32 @@ class Index_Model extends Model {
         }
         else
         {
-            
-            $statement = $this->db->prepare("
-                SELECT *
-                FROM (
-                    SELECT email, password FROM Student
-                    UNION all
-                    SELECT email, password FROM Recruiter
-                ) table1
-                WHERE email = '$username' AND password = '$password'
-            ");
+            $statement;
+            if (strcmp($position, 'student') == 0) {
+                $statement = $this->db->prepare("
+                    SELECT *
+                    FROM Student
+                    WHERE email = '$username' AND password = '$password'
+                ");
+                Session::set('isStudent', true);
+            }
+            else {
+                $statement = $this->db->prepare("
+                    SELECT *
+                    FROM Recruiter
+                    WHERE email = '$username' AND password = '$password'
+                ");
+                Session::set('isStudent', false);
+            }
 
             $success = $statement->execute();
+            $result = $statement->fetchAll();
 
-            if ($success && !empty($statement->fetchAll())) 
+            if ($success && !empty($result)) 
             {
                 Session::set('loggedIn', true);
                 Session::set('username', $username);
+                Session::set('userId', $result[0]['userID']);
                 
                 return TRUE;
             } 

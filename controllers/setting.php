@@ -13,7 +13,13 @@ class Setting extends Controller {
 
     public function index()
     {
-        $this->view->render('setting/index');
+        if (Session::get('isStudent')) {
+            $this->view->render('setting/studentSet');
+        }
+        else {
+            $this->view->companyList = $this->model->getCompanyList(Session::get('isStudent'));
+            $this->view->render('setting/recruiterSet');
+        }
     }
     
     public function withdrawAccount()
@@ -47,6 +53,14 @@ class Setting extends Controller {
             exit;
         }
     }
+    
+    public function addCompany()
+    {
+        $result = $this->model->addCompany();
+        echo $result;
+    }
+    
+    // private functions
     
     private function isLoggedIn()
     {

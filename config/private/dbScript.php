@@ -104,12 +104,35 @@ else
 $query =
 "CREATE TABLE Company
 (
+        companyId int(11) NOT NULL AUTO_INCREMENT,
 	name varchar(50) NOT NULL,
 	numberOfEmployees int(11) NOT NULL,
 	description varchar(10000) NOT NULL,
 	url varchar(500) DEFAULT NULL,
 
-	PRIMARY KEY (name)
+	PRIMARY KEY (companyId)
+);";
+
+$statement = $db->prepare($query);
+$success = $statement->execute();
+
+if($success)
+{
+    echo 'Company table has been successfully created.<br />';
+}
+else 
+{
+    echo 'Creating Company table failed or it\'s been already made.<br />'; 
+}
+
+$query =
+"CREATE TABLE RelationCompanyRecruiter
+(
+	id int(11) NOT NULL AUTO_INCREMENT,
+	recruiterId int(11) NOT NULL,
+	companyId int(11) NOT NULL,
+
+	PRIMARY KEY (id)
 );";
 
 $statement = $db->prepare($query);
