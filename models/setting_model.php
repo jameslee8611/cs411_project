@@ -128,6 +128,7 @@ class Setting_Model extends Model {
         else{
             return false;
         }
+    }
     
     public function getCompanyList($isStudent)
     {
