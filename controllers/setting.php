@@ -65,7 +65,7 @@ class Setting extends Controller {
         }
         else
         {
-            header('Location: ' .URL.'error/login');
+            header('Location: ' .URL.'error/updateInfo');
             exit;
         }
     }

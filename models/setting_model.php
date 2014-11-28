@@ -132,7 +132,38 @@ class Setting_Model extends Model {
     
     public function updateRecruiterInfo()
     {
+        $firstname = $_POST['firstname'];
+        $lastname = $_POST['lastname'];
+        $personalLink = $_POST['website'];
+        $companyId = $_POST['company_list'];
+        $userID = Session::get('userId');
         
+        $statement = $this->db->prepare("
+            UPDATE Recruiter 
+            SET firstname = '$firstname', lastname = '$lastname', personalLink = '$personalLink'
+            WHERE userID = $userID;
+        ");
+        $statement->execute();
+        
+        $relation_statement = $this->db->prepare("
+            UPDATE RelationCompanyRecruiter
+            SET companyId = $companyId
+            WHERE recruiterId = $userID;
+        ");
+        $relation_statement->execute();
+        $add_statement;
+        
+        if ($relation_statement->rowCount() < 1) {
+            $add_statement = $this->db->prepare("INSERT INTO RelationCompanyRecruiter (recruiterId,companyId) VALUES (:recruiterId,:companyId)");
+            $add_statement->execute(array(':recruiterId'=>$userID, ':companyId'=>$companyId));
+        }
+
+        if($statement && ($relation_statement || $add_statement)){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
     
     public function getCompanyList($isStudent)
