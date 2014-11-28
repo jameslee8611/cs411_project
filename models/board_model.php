@@ -26,19 +26,28 @@ class board_model extends Model {
         ");
         $success = $statement->execute();
         $uID = $statement->fetch()['userID'];
+        
+        if (!$success) {
+            echo 'Error occurred while getting userID!<br />';
+            echo '- in getjob() at board_model from board_controller<br />';
+            exit;
+        }
 
         $statement = $this->db->prepare("
             SELECT * FROM PREFERENCE WHERE uID = '$uID'
         ");
         $success = $statement->execute();
         $preference = $statement->fetch();
+        
+        if (!$success) {
+            echo 'Error occurred while getting userID from PREFERENCE!<br />';
+            echo '- in getjob() at board_model from board_controller<br />';
+            exit;
+        }
 
         $category = array('salary', 'requiredSkill', 'area', 'level', 'type','seekerVisaType');
-
         $query = $this->createFilterQuery($preference, $category);
-
         $statement = $this->db->prepare($query);
-
         $success = $statement->execute();
         
         $result = array();
@@ -53,12 +62,48 @@ class board_model extends Model {
         } 
         else 
         {
-            echo 'Error occurred while getting Wall!<br /><br />';
+            echo 'Error occurred while getting createFilterQuery!<br />';
+            echo '- in getjob() at board_model from board_controller<br /><br />';
+            echo 'Possible error detail: <br />';
+            echo '1. query statement<br />';
+            echo $this->createFilterQuery($preference, $category) . '<br />';
             exit;
         }
 
         return $result;
     }
+    
+    public function getUserInfo()
+    {
+        $status = (Session::get('isStudent')) ? 'Student' : 'Recruiter';
+        $email = Session::get('userId');
+        $statement = $this->db->prepare("
+                        SELECT *
+                        FROM $status
+                        WHERE userId = '$email';
+                    ");
+        $success = $statement->execute();
+        $user = $statement->fetchAll();
+        
+        if (!$success || empty($user)) {
+            echo "Error Occurs while query user data\r\n"
+                ."\t getUserInfo() in Board Model\r\n"
+                ."\t\t recruiterBoard() or jobBoard() in Board Controller";
+            exit;
+        }
+        
+        $result = '{}';
+        if (!Session::get('isStudent')) {
+            $result = '{"firstname": "'. $user[0]['firstname'] .'", "lastname": "'. $user[0]['lastname'] .'", "email": "'. $user[0]['email'] .'", "personalLink": "'. $user[0]['personalLink'] .'"}';
+        }
+        else {
+            
+        }
+        
+        return json_decode($result, true);
+    }
+    
+    // private functions
     
     private function formatter($jobID, $title, $companyName, $description, $location, $postedDate) 
     {

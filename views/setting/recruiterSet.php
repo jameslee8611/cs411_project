@@ -60,7 +60,7 @@
                 <select class="form-control" id="company-list">
                     <?php 
                         foreach ($this->companyList as $company) {
-                            echo '<option>'. $company .'</option>\n';
+                            echo '<option value="'.$company['id'].'">'.$company['name'].'</option>';
                         }
                     ?>
                 </select>

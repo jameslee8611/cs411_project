@@ -130,6 +130,11 @@ class Setting_Model extends Model {
         }
     }
     
+    public function updateRecruiterInfo()
+    {
+        
+    }
+    
     public function getCompanyList($isStudent)
     {
         if ($isStudent) {
@@ -142,7 +147,7 @@ class Setting_Model extends Model {
         
         //TODO: give back the compnay list
         $statement = $this->db->prepare("
-                        SELECT name
+                        SELECT name, companyId
                         FROM Company
                     ");
 
@@ -151,7 +156,8 @@ class Setting_Model extends Model {
         $result = Array();
         
         foreach ($companies as $company) {
-            array_push($result, $company['name']);
+            $format = '{"name": "' . $company['name'] .'", "id": "' . $company['companyId'] . '"}';
+            array_push($result, json_decode($format, true));
         }
         
         if (!$success) {
@@ -160,7 +166,7 @@ class Setting_Model extends Model {
                 .'\t\tindex() in Setting Controller';
         }
         
-        return $result;
+        return json_decode(json_encode($result), true);
     }
     
     public function addCompany()
@@ -185,11 +191,11 @@ class Setting_Model extends Model {
             $q_company->execute(array(':name'=>$name, ':description'=>$description, ':url'=>$url));
             $companyId = $this->db->lastInsertId();
             
-            $query_relation = "INSERT INTO RelationCompanyRecruiter (recruiterId,companyId) VALUES (:recruiterId,:companyId)";
-            $q_relation = $this->db->prepare($query_relation);
-            $q_relation->execute(array(':recruiterId'=>Session::get('userId'), ':companyId'=>$companyId));
+//            $query_relation = "INSERT INTO RelationCompanyRecruiter (recruiterId,companyId) VALUES (:recruiterId,:companyId)";
+//            $q_relation = $this->db->prepare($query_relation);
+//            $q_relation->execute(array(':recruiterId'=>Session::get('userId'), ':companyId'=>$companyId));
 
-            if (!$q_company && !$q_relation) {
+            if (!$q_company) {
                 $result = '{"error_msg": "Error occurs while inserting company info into db."}';
             }
             else {

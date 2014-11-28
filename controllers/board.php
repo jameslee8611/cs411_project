@@ -26,7 +26,7 @@ class board extends Controller {
     
     public function recruiterBoard()
     {
-        $this->view->userId = Session::get('userId');
+        $this->view->userInfo = $this->model->getUserInfo();
         $this->view->render('board/recruiterBoard');
     }
     
