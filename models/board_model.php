@@ -129,6 +129,22 @@ class board_model extends Model {
         return json_decode($result, true);
     }
     
+    public function findJobById()
+    {
+        $jobID = $_POST['jobID'];
+        $query = "SELECT * FROM JOB WHERE jobID = $jobID";
+        $statement = $this->db->prepare($query);
+        $statement->execute();
+        $job = $statement->fetch();
+
+        return $job;
+    }
+    
+    public function getJobById($jobId)
+    {
+        
+    }
+    
     // private functions
     
     private function formatter($jobID, $title, $companyName, $description, $location, $postedDate) 
@@ -157,16 +173,5 @@ class board_model extends Model {
         }
 
         return $query;
-    }
-
-    public function findJobById()
-    {
-        $jobID = $_POST['jobID'];
-        $query = "SELECT * FROM JOB WHERE jobID = $jobID";
-        $statement = $this->db->prepare($query);
-        $success = $statement->execute();
-        $job = $statement->fetch();
-
-        return $job;
     }
 }
