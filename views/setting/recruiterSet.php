@@ -51,13 +51,12 @@
 
     <div class="col-lg-6" id="profileResume">
         <h2>Profile</h2>
-        <form method="post">
+        <form method="post" action="<?php echo URL.'setting/updateRecruiterInfo'; ?>">
             <label>First Name: <input type="text" name="firstname" class="form-control" id="firstname" /></label>
             <label>Last Name: <input type="text" name="lastname" class="form-control" id="lastname" /></label></br>
-            <label>Email: <input type="text" name="email" class="form-control" id="email" /></label>
             <label>Website: <input type="text" name="website" class="form-control" id="website" /></label></br>
             <label>Company
-                <select class="form-control" id="company-list">
+                <select class="form-control" name="company_list">
                     <?php 
                         foreach ($this->companyList as $company) {
                             echo '<option value="'.$company['id'].'">'.$company['name'].'</option>';

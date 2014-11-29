@@ -17,12 +17,22 @@
             <li>email: <?php echo $user['email']?></li>
             <li>first name: <?php echo $user['firstname']?></li>
             <li>last name: <?php echo $user['lastname']?></li>
-            <li>personal link: <?php echo $user['personalLink']?></li>
+            <li>personal link: <a href="<?php echo $user['personalLink']?>"><?php echo $user['personalLink']?></a></li>
         </ul>
     </div>
     
     <div class="col-lg-6" id="accountSettings">
-        blah blah blah
+        <?php
+	    if (isset($this->data) || !empty($this->data)) {
+                echo '<table id="job-container"><tbody id="job-body">';
+                foreach ($this->data as $info) {
+                    echo '<tr><td>'.'<a class="job-title"><h4>'. $info['title'] . '</h4></a>' . '<div>' . $info['companyName'] . ' ' . $info['location'] . '</div>'
+                    . '<div class="job-description">'. $info['description'] . '</div>' . '<div>'. $info['postedDate'] . '</div>' . '<div class="jobID">'
+                    . $info['jobID'] . '</div>' .'</td></tr>';
+                }
+	       echo '</tbody></table>';
+	   }
+        ?>
     </div>
 
 </div>

@@ -8,3 +8,11 @@
 	width: auto;
 	display: inline-block;
 }
+
+#job-container tr{
+	border-bottom: 1px solid #4E4E4E;
+}
+
+#job-body{
+	border-top: 1px solid #4E4E4E;
+}
