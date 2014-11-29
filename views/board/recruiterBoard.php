@@ -9,6 +9,7 @@
 
 </nav>
 <?php $user = $this->userInfo; ?>
+<?php $company = $this->companyInfo; ?>
 
 <div class="row" id="content">    
     <div class="col-lg-3">
@@ -19,8 +20,79 @@
             <li>last name: <?php echo $user['lastname']?></li>
             <li>personal link: <a href="<?php echo $user['personalLink']?>"><?php echo $user['personalLink']?></a></li>
         </ul>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add Job Posting</button>
     </div>
-    
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Job Posting</h4>
+                </div>
+                <div class="modal-body">
+                        <div class="container">
+                            <h2>Post a Job Here</h2>
+                            <p>Try to fill in all information. It will help you to find most suitable applicant</p>
+                                <form role="form" action="board/addJobPosting">
+                                    <div class="form-group">
+                                        <div class="col-lg-8" id="jobcompany">
+                                            <label for="jobcompany">Company: </label>
+                                            <p>
+                                                <?php
+                                                    if(strcmp($company, '') == 0){
+                                                        echo "Please edit your profile to add company name!";
+                                                    }
+                                                    else{
+                                                        echo $company;
+                                                    }
+                                                ?>
+                                            </p>
+                                        </div>
+                                        <div class="col-lg-8" id="jobtitle">
+                                            <label for="jobtitle">Job Title: </label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                        <div class="col-lg-8" id="jobtype">
+                                            <label for="jobtype">Job Type:</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                        <div class="col-lg-8" id="jobarea">
+                                            <label for="jobarea">Job Area/Field:</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                        <div class="col-lg-8" id="joblevel">
+                                            <label for="joblevel">Experience Level:</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                        <div class="col-lg-8" id="joblocation">
+                                            <label for="joblocation">Office Location:</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                        <div class="col-lg-8" id="jobsalary">
+                                            <label for="joblocation">Avg Salary:</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                        <div class="col-lg-8" id="jobvisa">
+                                            <label for="jobvisa">Visa Sponsorship:</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                        <div class="col-lg-8" id="jobdescription">
+                                            <label for="jobdescription">Job Description:</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </form>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Add Posting</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="col-lg-6" id="accountSettings">
         <?php
 	    if (isset($this->data) || !empty($this->data)) {
@@ -49,7 +121,7 @@
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title" id="myModalJobTitleLabel">Job Title</h4>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" id="jobModalBody">
                     ...
                 </div>
                 <div class="modal-footer">
@@ -59,4 +131,26 @@
             </div>
         </div>
     </div>
+    
+    <!-- PDF viewer modal -->
+    <div class="modal fade" id="pdfViewModal" tabindex="-1" role="dialog" aria-labelledby="pdfViewModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalJobTitleLabel">PDF Viewer</h4>
+                </div>
+                <div class="modal-body" id="pdfViewModalBody">
+                    <object data="<?php echo URL.'public/resume/test.pdf'; ?>" type="application/pdf" width="570" height="750"> 
+                        <div>Your Browser is not supporting HTML5 -- you cannot see pdf file in your browser</div>
+                        <div><a href="<?php echo URL.'public/resume/test.pdf'; ?>">Resume</a></div>
+                    </object>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+

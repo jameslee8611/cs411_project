@@ -245,7 +245,7 @@ class Setting_Model extends Model {
                 $result = '{"error_msg": "Error occurs while inserting company info into db."}';
             }
             else {
-                $result = '{"error_msg": "", "company": "'.$name.'"}';
+                $result = '{"error_msg": "", "company": "'.$name.'", "id": '.$companyId.'}';
             }
         }
         

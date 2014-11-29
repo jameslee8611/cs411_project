@@ -56,7 +56,7 @@
             <label>Last Name: <input type="text" name="lastname" class="form-control" id="lastname" /></label></br>
             <label>Website: <input type="text" name="website" class="form-control" id="website" /></label></br>
             <label>Company
-                <select class="form-control" name="company_list">
+                <select class="form-control" name="company_list" id="company_list">
                     <?php 
                         foreach ($this->companyList as $company) {
                             echo '<option value="'.$company['id'].'">'.$company['name'].'</option>';

@@ -20,15 +20,28 @@ class board extends Controller {
     
     public function jobBoard()
     {
+        if (!Session::get('isStudent')) {
+            header('Location: ' .URL.'error/typeError');
+        }
+        
         $this->view->data = $this->model->getJob();
         $this->view->render('board/jobBoard');
     }
     
     public function recruiterBoard()
     {
+        if (Session::get('isStudent')) {
+            header('Location: ' .URL.'error/typeError');
+        }
+        
         $this->view->userInfo = $this->model->getUserInfo();
+        $this->view->companyInfo = $this->model->getCompanyInfo();
         $this->view->data = $this->model->getJobRecruiter();
         $this->view->render('board/recruiterBoard');
+    }
+
+    public function addJobPosting(){
+        
     }
     
     private function isLoggedIn()
@@ -48,5 +61,10 @@ class board extends Controller {
     public function ajax_findJobById()
     {
         print_r(json_encode($this->model->findJobById()));
+    }
+    
+    public function ajax_getJobById($jobId)
+    {
+        print_r(json_encode($this->model->getJobById($jobId)));
     }
 }

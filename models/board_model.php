@@ -129,6 +129,101 @@ class board_model extends Model {
         return json_decode($result, true);
     }
     
+    public function findJobById()
+    {
+        $jobID = $_POST['jobID'];
+        $query = "SELECT * FROM JOB WHERE jobID = $jobID";
+        $statement = $this->db->prepare($query);
+        $statement->execute();
+        $job = $statement->fetch();
+
+        return $job;
+    }
+    
+    public function getJobById($jobId)
+    {
+        $query = "SELECT *
+                  FROM Student, (
+                    SELECT studentId
+                    FROM RelationJobStudent 
+                    WHERE jobID = $jobId
+                  ) QStduent 
+                  WHERE QStduent.studentId = Student.userID";
+        $statement = $this->db->prepare($query);
+        $statement->execute();
+        $students = $statement->fetchAll();
+        $result = Array();
+        foreach ($students as $student) {
+            array_push($result, json_decode('{"firstname": "'.$student['firstname'].'",
+                                              "lastname": "'.$student['lastname'].'",
+                                              "email": "'.$student['email'].'",
+                                              "personalLink": "'.$student['personalLink'].'",
+                                              "phoneNumber": "'.$student['phoneNumber'].'",
+                                              "school": "'.$student['school'].'",
+                                              "resume": "'.$student['resume'].'"}', true));
+        }
+        return $result;
+    }
+    
+    public function getCompanyInfo()
+    {
+        $status = (Session::get('isStudent')) ? 'Student' : 'Recruiter';
+        
+        if(strcmp($status, 'Recruiter') != 0) {
+            echo "Error Occurs while query user data\r\n"
+                ."\t status Var contains wrong value\r\n"
+                ."\t\t getCompanyInfo() in Board Model";
+
+            exit;
+        }
+        
+        $userId = Session::get('userId');
+
+        $statement = $this->db->prepare("
+                SELECT companyId
+                FROM RelationCompanyRecruiter
+                WHERE recruiterId = '$userId';
+            ");
+        $success = $statement->execute();
+        $companyInfo = $statement->fetch();
+        
+        if(!$success) {
+            echo "Error Occurs while query company ID\r\n"
+                ."\t getCompanyInfo() in Board Model\r\n"
+                ."\t\t recruiterBoard() in Board Controller";
+            exit;
+        }
+
+        if(empty($companyInfo)){
+            return '';
+        }
+        
+        
+        $statement = $this->db->prepare("
+                SELECT name
+                FROM Company
+                WHERE companyId = '$companyInfo[0]';
+            ");
+        $success = $statement->execute();
+        $companyName = $statement->fetchAll();
+        
+        if(!$success) {
+            echo "Error Occurs while query company's name\r\n"
+                ."\t getUserInfo() in Board Model\r\n"
+                ."\t\t recruiterBoard() in Board Controller";
+            exit;
+        }
+        if(empty($companyName)) {
+            return '';
+        }
+
+        return $companyName[0]['name'];
+    }
+
+    public function addJobPosting(){
+        
+    }
+    
     // private functions
     
     private function formatter($jobID, $title, $companyName, $description, $location, $postedDate) 
@@ -157,16 +252,5 @@ class board_model extends Model {
         }
 
         return $query;
-    }
-
-    public function findJobById()
-    {
-        $jobID = $_POST['jobID'];
-        $query = "SELECT * FROM JOB WHERE jobID = $jobID";
-        $statement = $this->db->prepare($query);
-        $success = $statement->execute();
-        $job = $statement->fetch();
-
-        return $job;
     }
 }
