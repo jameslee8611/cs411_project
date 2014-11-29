@@ -132,4 +132,15 @@ class board_model extends Model {
 
         return $query;
     }
+
+    public function findJobById()
+    {
+        $jobID = $_POST['jobID'];
+        $query = "SELECT * FROM JOB WHERE jobID = $jobID";
+        $statement = $this->db->prepare($query);
+        $success = $statement->execute();
+        $job = $statement->fetch();
+
+        return $job;
+    }
 }

@@ -43,4 +43,9 @@ class board extends Controller {
     {
         print_r(json_encode($this->model->getJob()));
     }
+
+    public function ajax_findJobById()
+    {
+        print_r(json_encode($this->model->findJobById()));
+    }
 }
