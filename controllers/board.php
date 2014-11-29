@@ -28,6 +28,7 @@ class board extends Controller {
     {
         $this->view->userInfo = $this->model->getUserInfo();
         $this->view->companyInfo = $this->model->getCompanyInfo();
+        $this->view->data = $this->model->getJobRecruiter();
         $this->view->render('board/recruiterBoard');
     }
     
@@ -43,5 +44,10 @@ class board extends Controller {
     public function ajax_getJobList()
     {
         print_r(json_encode($this->model->getJob()));
+    }
+
+    public function ajax_findJobById()
+    {
+        print_r(json_encode($this->model->findJobById()));
     }
 }

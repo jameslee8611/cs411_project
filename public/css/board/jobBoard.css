@@ -2,6 +2,10 @@
 	display: none;
 }
 
+.job-title{
+	cursor: pointer;
+}
+
 #searchbar input{
 	width: 90%;
 	margin-top: 20px;

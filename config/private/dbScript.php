@@ -74,7 +74,8 @@ $query =
 "CREATE TABLE Job
 (
 	jobID int(11) NOT NULL AUTO_INCREMENT,
-	postedDate int(11) NOT NULL,
+        recruiterID int(11) NOT NULL,
+	postedDate timestamp DEFAULT CURRENT_TIMESTAMP,
 	title varchar(32) NOT NULL,
 	companyName varchar(50) NOT NULL,
 	type varchar(32) NOT NULL,
@@ -141,11 +142,34 @@ $success = $statement->execute();
 
 if($success)
 {
-    echo 'Company table has been successfully created.<br />';
+    echo 'RelationCompanyRecruiter table has been successfully created.<br />';
 }
 else 
 {
-    echo 'Creating Company table failed or it\'s been already made.<br />'; 
+    echo 'Creating RelationCompanyRecruiter table failed or it\'s been already made.<br />'; 
+}
+
+$query =
+"CREATE TABLE RelationJobStudent
+(
+	id int(11) NOT NULL AUTO_INCREMENT,
+	studentId int(11) NOT NULL,
+	jobId int(11) NOT NULL,
+        postedDate timestamp DEFAULT CURRENT_TIMESTAMP,
+
+	PRIMARY KEY (id)
+);";
+
+$statement = $db->prepare($query);
+$success = $statement->execute();
+
+if($success)
+{
+    echo 'RelationJobStudent table has been successfully created.<br />';
+}
+else 
+{
+    echo 'Creating RelationJobStudent table failed or it\'s been already made.<br />'; 
 }
 
 $query =

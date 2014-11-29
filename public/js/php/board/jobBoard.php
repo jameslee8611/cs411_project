@@ -38,5 +38,35 @@
 		}
     }
 
+    $(".job-title").click(function(){
+    	var jobRow = $(this).closest("tr").find("td");
+    	var job = $(jobRow[0]).find(".jobID");
+    	var jobId = job[0].innerHTML;
+    	fillApplyModal(jobId);
+    })
+
+    function fillApplyModal(jobId){
+    	$("#applyModalBody").empty();
+    	var url = <?php echo json_encode(URL); ?>;
+		var post_url = url + 'board/ajax_findJobById';
+    	$.ajax({
+    		url: post_url,
+    		type: 'post',
+    		data: {'jobID': jobId},
+    		dataType: 'json',
+    		success: function(data){
+    			$("#applyModalBody").append('<div><h4>' + data.title + '</h4></div>' + '<div>Company: ' + 
+					data.companyName + ' Location: ' + data.location + '</div>' + '<div>Type: ' + data.type + '</div>'  
+					+ '<div>Area: ' + data.area + ' Level: ' + data.level + '</div>' + '<div>Skill: ' + data.requiredSkill + '</div>' 
+					+ '<div>Salary: ' + data.salary + ' Date Posed: ' + data.postedDate + ' Visa Type: ' + data.seekerVisaType + '</div>'
+					+ '<div class="job-description">' + data.description);
+    		}
+    	})
+    }
+
+    $("#applyButton").click(function(){
+    	
+    })
+
 </script>
 

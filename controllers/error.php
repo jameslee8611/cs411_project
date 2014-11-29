@@ -20,4 +20,8 @@ class Error extends Controller {
     public function login() {
         $this->view->render('error/login');
     }
+    
+    public function updateInfo() {
+        $this->view->render('error/updateInfo');
+    }
 }

@@ -73,6 +73,32 @@ class board_model extends Model {
         return $result;
     }
     
+    public function getJobRecruiter()
+    {
+        $recruiterId = Session::get('userId');
+        
+        $statement = $this->db->prepare("SELECT * FROM Job WHERE recruiterID = $recruiterId");
+        $success = $statement->execute();
+        
+        if (!$success) {
+            echo 'Error occurred while getting job query for recruiter!<br />';
+            echo '- in getJobRecruiter() at board_model from board_controller<br /><br />';
+            echo 'Possible error detail: <br />';
+            echo '1. query statement<br />';
+            echo 'SELECT * FROM Job WHERE jobID = $recruiterId <br />';
+            exit;
+        }
+        
+        $query = $statement->fetchAll();
+        $result = Array();
+        foreach ($query as $row) 
+        {
+            array_push($result, $this->formatter($row['jobID'], $row['title'], $row['companyName'], $row['description'], $row['location'], $row['postedDate']));
+        }
+        
+        return $result;
+    }
+    
     public function getUserInfo()
     {
         $status = (Session::get('isStudent')) ? 'Student' : 'Recruiter';
@@ -176,5 +202,16 @@ class board_model extends Model {
         }
 
         return $query;
+    }
+
+    public function findJobById()
+    {
+        $jobID = $_POST['jobID'];
+        $query = "SELECT * FROM JOB WHERE jobID = $jobID";
+        $statement = $this->db->prepare($query);
+        $success = $statement->execute();
+        $job = $statement->fetch();
+
+        return $job;
     }
 }
