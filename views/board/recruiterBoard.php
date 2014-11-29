@@ -36,6 +36,10 @@
                             <p>Try to fill in all information. It will help you to find most suitable applicant</p>
                                 <form role="form">
                                     <div class="form-group">
+                                        <div class="col-lg-8" id="jobcompany">
+                                            <label for="jobcompany">Company: </label>
+                                            <p><?php echo $company?></p>
+                                        </div>
                                         <div class="col-lg-8" id="jobtitle">
                                             <label for="jobtitle">Job Title: </label>
                                             <input type="text" class="form-control">

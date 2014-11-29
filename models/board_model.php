@@ -168,46 +168,60 @@ class board_model extends Model {
     public function getCompanyInfo()
     {
         $status = (Session::get('isStudent')) ? 'Student' : 'Recruiter';
-        if($status) {
+        
+        if(strcmp($status, 'Recruiter') != 0) {
             echo "Error Occurs while query user data\r\n"
                 ."\t status Var contains wrong value\r\n"
                 ."\t\t getCompanyInfo() in Board Model";
+
             exit;
         }
-        $email = Session::get('userId');
+        
+        $userId = Session::get('userId');
+
         $statement = $this->db->prepare("
                 SELECT companyId
                 FROM RelationCompanyRecruiter
-                WHERE recruiterId = '$email';
+                WHERE recruiterId = '$userId';
             ");
         $success = $statement->execute();
-        $companyInfo = $statement->fetchAll();
-        if(!$success || empty($companyInfo)) {
+        $companyInfo = $statement->fetch();
+
+        echo $companyInfo[0];
+        exit;
+        
+        if(!$success) {
             echo "Error Occurs while query company ID\r\n"
-                ."\t getUserInfo() in Board Model\r\n"
+                ."\t getCompanyInfo() in Board Model\r\n"
                 ."\t\t recruiterBoard() in Board Controller";
             exit;
         }
 
+        if(empty($companyInfo)){
+            return '';
+        }
+        
+        
         $statement = $this->db->prepare("
                 SELECT name
                 FROM Company
-                WHERE companyId = '$companyInfo';
+                WHERE companyId = '$companyInfo[0][0]';
             ");
         $success = $statement->execute();
         $companyName = $statement->fetchAll();
-        if(!$success || empty($companyName)) {
+        
+        if(!$success) {
             echo "Error Occurs while query company's name\r\n"
                 ."\t getUserInfo() in Board Model\r\n"
                 ."\t\t recruiterBoard() in Board Controller";
             exit;
         }
+        if(empty($companyName)) {
+            return '';
+        }
 
-        $result = '{}';
-        $result = '{"companyName": "'. $companyName[0][0] .'}';
-
-        return json_decode($result, true);
-
+        return $companyName[0]['name'];
+        
 
     }
     
