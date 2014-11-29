@@ -53,7 +53,7 @@
 
     <div class="col-lg-6" id="profileResume">
         <h2>Profile/Resume</h2>
-        <form method="post" action="setting/updateProfile">
+        <form method="post" id="profileForm" action="setting/updateProfile" enctype="multipart/form-data">
             <label>First Name: <input type="text" name="firstname" class="form-control" id="firstname" /></label>
             <label>Last Name: <input type="text" name="lastname" class="form-control" id="lastname" /></label></br>
 
@@ -72,7 +72,8 @@
                 </select></label>
             </div></br>
 
-            <label>Resume: <input type="file" name="resume" class="form-control" id="resume"  accept=".pdf"/></label></br>
+            <label>Resume: <input type="file" name="resume" class="form-control" id="resume"  accept=".pdf"/></label>
+            <label id="current-resume"></label></br>
 
             <label><button type="submit" class="form-control">Submit</button></label>
         </form>

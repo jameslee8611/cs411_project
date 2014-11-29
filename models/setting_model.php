@@ -107,7 +107,8 @@ class Setting_Model extends Model {
 
     public function updateProfile()
     {
-        $username = Session::get('username');
+        //$username = Session::get('username');
+        $userId = Session::get('userId');
         $firstname = $_POST['firstname'];
         $lastname = $_POST['lastname'];
         $phoneNumber = $_POST['phonenum'];
@@ -115,11 +116,25 @@ class Setting_Model extends Model {
         $address = $_POST['address'];
         $school = $_POST['school'];
         $visa = $_POST['profile-visa'];
+        
+        if(isset($_FILES['resume'])){
+            $resume = $_FILES['resume']['tmp_name'];
+            $full_path = $_SERVER['DOCUMENT_ROOT'] . '/comjob/cs411_project/public/resume/' . $userId . '.pdf';
+            
+            if(!move_uploaded_file($resume, $full_path)){
+                return false;
+            }
+            else{
+                $resume = $userId . '.pdf';
+                $query = "UPDATE STUDENT SET firstname = '$firstname', lastname = '$lastname', phoneNumber = '$phoneNumber', personalLink = '$personalLink', 
+                    school = '$school', visaStatus = '$visa', address = '$address', resume = '$resume' WHERE userID = '$userId'";
+            }
+        }else{
+            $query = "UPDATE STUDENT SET firstname = '$firstname', lastname = '$lastname', phoneNumber = '$phoneNumber', personalLink = '$personalLink', 
+                school = '$school', visaStatus = '$visa', address = '$address' WHERE userID = '$userId'";
+        }
 
-        $statement = $this->db->prepare("
-            UPDATE STUDENT SET firstname = '$firstname', lastname = '$lastname', phoneNumber = '$phoneNumber', personalLink = '$personalLink', 
-            school = '$school', visaStatus = '$visa', address = '$address' WHERE email = '$username'
-        ");
+        $statement = $this->db->prepare($query);
         $statement->execute();
 
         if($statement){
@@ -235,5 +250,37 @@ class Setting_Model extends Model {
         }
         
         return $result;
+    }
+
+    public function getProfile($userId)
+    {
+        $query = "SELECT firstname, lastname, personalLink, phoneNumber, address, visaStatus, school, resume FROM STUDENT WHERE userID = '$userId'";
+        $statement = $this->db->prepare($query);
+        $statement->execute();
+        $profile = $statement->fetch();
+        
+        $result = Array();
+        
+        array_push($result, $this->profileFormatter($profile['firstname'], $profile['lastname'], $profile['personalLink'], 
+           $profile['phoneNumber'], $profile['address'], $profile['visaStatus'], $profile['school'], $profile['resume']));
+        
+        return $result;
+
+    }
+
+    private function profileFormatter($firstname, $lastname, $link, $number, $address, $visa, $school, $resume) 
+    {
+        $result = '{
+                        "firstname": "' . $firstname . '",
+                        "lastname": "' . $lastname . '",
+                        "personalLink": "'. $link . '",
+                        "phoneNumber": "'. $number . '",
+                        "address": "' . $address . '",
+                        "visaStatus": "' . $visa . '",
+                        "school": "' . $school . '",
+                        "resume": "' . $resume . '"';
+        $result .=  ' }';
+        
+        return json_decode($result, true);
     }
 }
