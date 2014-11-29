@@ -1,18 +1,22 @@
-#searchbar input{
+#searchbar input {
 	width: 90.2%;
 	margin-top: 20px;
 	display: inline-block;
 }
 
-#searchbar #search{
+#searchbar #search {
 	width: auto;
 	display: inline-block;
 }
 
-#job-container tr{
+#job-container tr {
 	border-bottom: 1px solid #4E4E4E;
 }
 
-#job-body{
+#job-body {
 	border-top: 1px solid #4E4E4E;
+}
+
+.job-title {
+    cursor:pointer;
 }
