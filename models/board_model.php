@@ -142,7 +142,27 @@ class board_model extends Model {
     
     public function getJobById($jobId)
     {
-        
+        $query = "SELECT *
+                  FROM Student, (
+                    SELECT studentId
+                    FROM RelationJobStudent 
+                    WHERE jobID = $jobId
+                  ) QStduent 
+                  WHERE QStduent.studentId = Student.userID";
+        $statement = $this->db->prepare($query);
+        $statement->execute();
+        $students = $statement->fetchAll();
+        $result = Array();
+        foreach ($students as $student) {
+            array_push($result, json_decode('{"firstname": "'.$student['firstname'].'",
+                                              "lastname": "'.$student['lastname'].'",
+                                              "email": "'.$student['email'].'",
+                                              "personalLink": "'.$student['personalLink'].'",
+                                              "phoneNumber": "'.$student['phoneNumber'].'",
+                                              "school": "'.$student['school'].'",
+                                              "resume": "'.$student['resume'].'"}', true));
+        }
+        return $result;
     }
     
     public function getCompanyInfo()

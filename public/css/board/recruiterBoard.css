@@ -18,5 +18,9 @@
 }
 
 .job-title {
-    cursor:pointer;
+    cursor: pointer;
+}
+
+.student-name {
+    cursor: pointer;
 }

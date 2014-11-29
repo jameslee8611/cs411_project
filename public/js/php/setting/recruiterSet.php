@@ -35,7 +35,9 @@
             data: serializedData,
             success: function(result) {
                 var data = JSON.parse(result);
-                if (!data.error_msg) $("#company-list").append('<option value=1>' + data.company + '</option>');
+                if (!data.error_msg) {
+                    $("#company_list").append('<option value=' + data.id + '>' + data.company + '</option>');
+                }
                 else alert(data.error_msg);
             }
         });
