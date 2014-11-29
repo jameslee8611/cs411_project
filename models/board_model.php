@@ -145,6 +145,52 @@ class board_model extends Model {
         
     }
     
+    public function getCompanyInfo()
+    {
+        $status = (Session::get('isStudent')) ? 'Student' : 'Recruiter';
+        if($status) {
+            echo "Error Occurs while query user data\r\n"
+                ."\t status Var contains wrong value\r\n"
+                ."\t\t getCompanyInfo() in Board Model";
+            exit;
+        }
+        $email = Session::get('userId');
+        $statement = $this->db->prepare("
+                SELECT companyId
+                FROM RelationCompanyRecruiter
+                WHERE recruiterId = '$email';
+            ");
+        $success = $statement->execute();
+        $companyInfo = $statement->fetchAll();
+        if(!$success || empty($companyInfo)) {
+            echo "Error Occurs while query company ID\r\n"
+                ."\t getUserInfo() in Board Model\r\n"
+                ."\t\t recruiterBoard() in Board Controller";
+            exit;
+        }
+
+        $statement = $this->db->prepare("
+                SELECT name
+                FROM Company
+                WHERE companyId = '$companyInfo';
+            ");
+        $success = $statement->execute();
+        $companyName = $statement->fetchAll();
+        if(!$success || empty($companyName)) {
+            echo "Error Occurs while query company's name\r\n"
+                ."\t getUserInfo() in Board Model\r\n"
+                ."\t\t recruiterBoard() in Board Controller";
+            exit;
+        }
+
+        $result = '{}';
+        $result = '{"companyName": "'. $companyName[0][0] .'}';
+
+        return json_decode($result, true);
+
+
+    }
+    
     // private functions
     
     private function formatter($jobID, $title, $companyName, $description, $location, $postedDate) 
