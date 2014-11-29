@@ -35,9 +35,13 @@ class board extends Controller {
         }
         
         $this->view->userInfo = $this->model->getUserInfo();
-        //$this->view->companyInfo = $this->model->getCompanyInfo();
+        $this->view->companyInfo = $this->model->getCompanyInfo();
         $this->view->data = $this->model->getJobRecruiter();
         $this->view->render('board/recruiterBoard');
+    }
+
+    public function addJobPosting(){
+        
     }
     
     private function isLoggedIn()

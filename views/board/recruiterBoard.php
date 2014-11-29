@@ -34,11 +34,20 @@
                         <div class="container">
                             <h2>Post a Job Here</h2>
                             <p>Try to fill in all information. It will help you to find most suitable applicant</p>
-                                <form role="form">
+                                <form role="form" action="board/addJobPosting">
                                     <div class="form-group">
                                         <div class="col-lg-8" id="jobcompany">
                                             <label for="jobcompany">Company: </label>
-                                            <p><?php echo $company?></p>
+                                            <p>
+                                                <?php
+                                                    if(strcmp($company, '') == 0){
+                                                        echo "Please edit your profile to add company name!";
+                                                    }
+                                                    else{
+                                                        echo $company;
+                                                    }
+                                                ?>
+                                            </p>
                                         </div>
                                         <div class="col-lg-8" id="jobtitle">
                                             <label for="jobtitle">Job Title: </label>

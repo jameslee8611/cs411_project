@@ -186,9 +186,6 @@ class board_model extends Model {
             ");
         $success = $statement->execute();
         $companyInfo = $statement->fetch();
-
-        echo $companyInfo[0];
-        exit;
         
         if(!$success) {
             echo "Error Occurs while query company ID\r\n"
@@ -205,7 +202,7 @@ class board_model extends Model {
         $statement = $this->db->prepare("
                 SELECT name
                 FROM Company
-                WHERE companyId = '$companyInfo[0][0]';
+                WHERE companyId = '$companyInfo[0]';
             ");
         $success = $statement->execute();
         $companyName = $statement->fetchAll();
@@ -221,8 +218,10 @@ class board_model extends Model {
         }
 
         return $companyName[0]['name'];
-        
+    }
 
+    public function addJobPosting(){
+        
     }
     
     // private functions
