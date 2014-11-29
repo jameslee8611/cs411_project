@@ -129,6 +129,42 @@ class board_model extends Model {
         return json_decode($result, true);
     }
     
+    public function findJobById()
+    {
+        $jobID = $_POST['jobID'];
+        $query = "SELECT * FROM JOB WHERE jobID = $jobID";
+        $statement = $this->db->prepare($query);
+        $statement->execute();
+        $job = $statement->fetch();
+
+        return $job;
+    }
+    
+    public function getJobById($jobId)
+    {
+        $query = "SELECT *
+                  FROM Student, (
+                    SELECT studentId
+                    FROM RelationJobStudent 
+                    WHERE jobID = $jobId
+                  ) QStduent 
+                  WHERE QStduent.studentId = Student.userID";
+        $statement = $this->db->prepare($query);
+        $statement->execute();
+        $students = $statement->fetchAll();
+        $result = Array();
+        foreach ($students as $student) {
+            array_push($result, json_decode('{"firstname": "'.$student['firstname'].'",
+                                              "lastname": "'.$student['lastname'].'",
+                                              "email": "'.$student['email'].'",
+                                              "personalLink": "'.$student['personalLink'].'",
+                                              "phoneNumber": "'.$student['phoneNumber'].'",
+                                              "school": "'.$student['school'].'",
+                                              "resume": "'.$student['resume'].'"}', true));
+        }
+        return $result;
+    }
+    
     public function getCompanyInfo()
     {
         $status = (Session::get('isStudent')) ? 'Student' : 'Recruiter';
@@ -188,6 +224,7 @@ class board_model extends Model {
         
 
     }
+    
     // private functions
     
     private function formatter($jobID, $title, $companyName, $description, $location, $postedDate) 
@@ -216,16 +253,5 @@ class board_model extends Model {
         }
 
         return $query;
-    }
-
-    public function findJobById()
-    {
-        $jobID = $_POST['jobID'];
-        $query = "SELECT * FROM JOB WHERE jobID = $jobID";
-        $statement = $this->db->prepare($query);
-        $success = $statement->execute();
-        $job = $statement->fetch();
-
-        return $job;
     }
 }

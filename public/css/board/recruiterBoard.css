@@ -17,6 +17,23 @@
 	border-top: 1px solid #4E4E4E;
 }
 
+#student-container tr {
+    margin: 1px;
+}
+
+#student-container td {
+    padding-left:3px;
+    padding-right: 3px;
+}
+
+#student-body {
+    margin: 1px;
+}
+
 .job-title {
-    cursor:pointer;
+    cursor: pointer;
+}
+
+.student-name {
+    cursor: pointer;
 }
