@@ -27,6 +27,7 @@ class board extends Controller {
     public function recruiterBoard()
     {
         $this->view->userInfo = $this->model->getUserInfo();
+        $this->view->companyInfo = $this->model->getCompanyInfo();
         $this->view->render('board/recruiterBoard');
     }
     
