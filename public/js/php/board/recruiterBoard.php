@@ -12,11 +12,17 @@ var updateJob = function(jobId, jobTitle) {
         data: 'json',
         success: function(jsonData) {
             var data = JSON.parse(jsonData);
-            var content='<ul>\n';
-            data.forEach(function(element, index, array) { //element.Type
-                content += '<li><a class="student-name" data-toggle="modal" data-target="#pdfViewModal">' + element.firstname + ' ' + element.lastname + '</li>\n';
+            var content='<table id="student-container"><tbody id="student-body">\n';
+            data.forEach(function(element, index, array) {
+                content += '<tr>\n';
+                content += '<td><a class="student-name" data-toggle="modal" data-target="#pdfViewModal">' + element.firstname + ' ' + element.lastname + '</a></td>\n';
+                content += '<td>' + element.email + '</td>\n';
+                if(element.personalLink) content += '<td><a href="' + element.personalLink + '" target="_blank">Personal Link</td>\n';
+                content += '<td>' + element.phoneNumber + '</td>\n';
+                content += '<td>' + element.school + '</td>\n';
+                content += '</tr>\n';
             });
-            content += '</ul>';
+            content += '</tbody></table>';
             $("#jobModalBody").html(content);
         }
     });
