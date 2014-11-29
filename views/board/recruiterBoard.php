@@ -141,7 +141,10 @@
                     <h4 class="modal-title" id="myModalJobTitleLabel">PDF Viewer</h4>
                 </div>
                 <div class="modal-body" id="pdfViewModalBody">
-                    ...
+                    <object data="<?php echo URL.'public/resume/test.pdf'; ?>" type="application/pdf" width="570" height="750"> 
+                        <div>Your Browser is not supporting HTML5 -- you cannot see pdf file in your browser</div>
+                        <div><a href="<?php echo URL.'public/resume/test.pdf'; ?>">Resume</a></div>
+                    </object>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
