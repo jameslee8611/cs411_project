@@ -59,13 +59,23 @@
 					data.companyName + ' Location: ' + data.location + '</div>' + '<div>Type: ' + data.type + '</div>'  
 					+ '<div>Area: ' + data.area + ' Level: ' + data.level + '</div>' + '<div>Skill: ' + data.requiredSkill + '</div>' 
 					+ '<div>Salary: ' + data.salary + ' Date Posed: ' + data.postedDate + ' Visa Type: ' + data.seekerVisaType + '</div>'
-					+ '<div class="job-description">' + data.description);
+					+ '<div class="job-description">' + data.description + '</div>' + '<div id="currentJobId">' + jobId + '</div>');
     		}
     	})
     }
 
     $("#applyButton").click(function(){
-    	
+    	var jobId = $("#currentJobId").html();
+    	var url = <?php echo json_encode(URL); ?>;
+		var post_url = url + 'board/ajax_applyJob';
+    	$.ajax({
+    		url: post_url,
+    		type: "post",
+    		data: {"jobId" : jobId},
+    		success: function(data){
+    			alert(data);
+    		}
+    	})
     })
 
 </script>

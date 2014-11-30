@@ -15,6 +15,7 @@ class Setting extends Controller {
     {
         if (Session::get('isStudent')) {
             $this->view->profile = $this->model->getProfile(Session::get('userId'));
+            $this->view->preference = $this->model->getPreference(Session::get('userId'));
             $this->view->render('setting/studentSet');
         }
         else {

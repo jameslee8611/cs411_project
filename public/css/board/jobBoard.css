@@ -1,4 +1,4 @@
-.jobID{
+.jobID, #currentJobId{
 	display: none;
 }
 

@@ -67,4 +67,10 @@ class board extends Controller {
     {
         print_r(json_encode($this->model->getJobById($jobId)));
     }
+
+    public function ajax_applyJob()
+    {
+        $status = $this->model->applyJob();
+        print_r($status);
+    }
 }

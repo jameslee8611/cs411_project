@@ -268,6 +268,36 @@ class Setting_Model extends Model {
 
     }
 
+    public function getPreference($userId)
+    {
+        $query = "SELECT * FROM PREFERENCE WHERE uID = $userId";
+        $statement = $this->db->prepare($query);
+        $statement->execute();
+        $preference = $statement->fetch();
+        
+        $result = Array();
+        
+        array_push($result, $this->preferenceFormatter($preference['minSalary'], $preference['primarySkill'], $preference['area'], 
+           $preference['level'], $preference['position'], $preference['visa']));
+        
+        return $result;
+
+    }
+
+    private function preferenceFormatter($salary, $skill, $area, $level, $position, $visa) 
+    {
+        $result = '{
+                        "salary": "' . $salary . '",
+                        "skill": "' . $skill . '",
+                        "area": "'. $area . '",
+                        "level": "'. $level . '",
+                        "position": "' . $position . '",
+                        "visa": "' . $visa . '"';
+        $result .=  ' }';
+        
+        return json_decode($result, true);
+    }
+
     private function profileFormatter($firstname, $lastname, $link, $number, $address, $visa, $school, $resume) 
     {
         $result = '{
