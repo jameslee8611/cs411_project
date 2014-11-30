@@ -154,7 +154,7 @@ class board_model extends Model {
     {
         $query = "SELECT *
                   FROM Student, (
-                    SELECT studentId
+                    SELECT studentId, status
                     FROM RelationJobStudent 
                     WHERE jobID = $jobId
                   ) QStduent 
@@ -164,13 +164,15 @@ class board_model extends Model {
         $students = $statement->fetchAll();
         $result = Array();
         foreach ($students as $student) {
-            array_push($result, json_decode('{"firstname": "'.$student['firstname'].'",
+            array_push($result, json_decode('{"userId": "'.$student['userID'].'",
+                                              "firstname": "'.$student['firstname'].'",
                                               "lastname": "'.$student['lastname'].'",
                                               "email": "'.$student['email'].'",
                                               "personalLink": "'.$student['personalLink'].'",
                                               "phoneNumber": "'.$student['phoneNumber'].'",
                                               "school": "'.$student['school'].'",
-                                              "resume": "'.$student['resume'].'"}', true));
+                                              "resume": "'.$student['resume'].'",
+                                              "status": '.$student['status'].'}', true));
         }
         return $result;
     }
@@ -229,9 +231,21 @@ class board_model extends Model {
 
         return $companyName[0]['name'];
     }
-
-    public function addJobPosting(){
+    
+    public function updateProgressStatus($jobId, $studentId, $status) {
+        $statement = $this->db->prepare("
+            UPDATE RelationJobStudent
+            SET status = $status
+            WHERE jobId = $jobId AND studentId = $studentId
+        ");
+        $statement->execute();
         
+        if ($statement) {
+            return null;
+        }
+        else {
+            return "Error occurs while updating job status.";
+        }
     }
     
     public function applyJob()

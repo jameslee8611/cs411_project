@@ -156,6 +156,7 @@ $query =
 	studentId int(11) NOT NULL,
 	jobId int(11) NOT NULL,
         postedDate timestamp DEFAULT CURRENT_TIMESTAMP,
+        status int(3) DEFAULT 1,
 
 	PRIMARY KEY (id)
 );";

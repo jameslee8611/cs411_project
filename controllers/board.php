@@ -39,10 +39,6 @@ class board extends Controller {
         $this->view->data = $this->model->getJobRecruiter();
         $this->view->render('board/recruiterBoard');
     }
-
-    public function addJobPosting(){
-        
-    }
     
     private function isLoggedIn()
     {
@@ -72,5 +68,16 @@ class board extends Controller {
     {
         $status = $this->model->applyJob();
         print_r($status);
+    }
+    
+    public function ajax_updateProgressStatus($jobId, $studentId, $status)
+    {
+        if (!Session::get('isStudent')) {
+            $result = $this->model->updateProgressStatus($jobId, $studentId, $status);
+            echo $result;
+        }
+        else {
+            echo "Invalid Access!";
+        }
     }
 }
