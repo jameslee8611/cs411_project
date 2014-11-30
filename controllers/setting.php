@@ -14,6 +14,7 @@ class Setting extends Controller {
     public function index()
     {
         if (Session::get('isStudent')) {
+            $this->view->profile = $this->model->getProfile(Session::get('userId'));
             $this->view->render('setting/studentSet');
         }
         else {
@@ -109,7 +110,8 @@ class Setting extends Controller {
 
         if ($result)
         {
-            header('Location: ' .URL.'setting');
+            //header('Location: ' .URL.'setting');
+            echo($result);
             exit;
         }
         else

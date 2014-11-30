@@ -1,7 +1,0 @@
-/nbproject/*
-/nbproject/**/*
-.DS_Store
-/config/private/database.php
-/config/private/constant.php
-/public/resume/*
-.pdf
