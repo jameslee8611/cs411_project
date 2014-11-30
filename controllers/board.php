@@ -67,4 +67,15 @@ class board extends Controller {
     {
         print_r(json_encode($this->model->getJobById($jobId)));
     }
+    
+    public function ajax_updateProgressStatus($jobId, $studentId, $status)
+    {
+        if (!Session::get('isStudent')) {
+            $result = $this->model->updateProgressStatus($jobId, $studentId, $status);
+            echo $result;
+        }
+        else {
+            echo "Invalid Access!";
+        }
+    }
 }
