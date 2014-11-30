@@ -34,60 +34,60 @@
                         <div class="container">
                             <h2>Post a Job Here</h2>
                             <p>Try to fill in all information. It will help you to find most suitable applicant</p>
-                                <form role="form" action="board/addJobPosting">
-                                    <div class="form-group">
-                                        <div class="col-lg-8" id="jobcompany">
-                                            <label for="jobcompany">Company: </label>
-                                            <p>
-                                                <?php
-                                                    if(strcmp($company, '') == 0){
-                                                        echo "Please edit your profile to add company name!";
-                                                    }
-                                                    else{
-                                                        echo $company;
-                                                    }
-                                                ?>
-                                            </p>
-                                        </div>
-                                        <div class="col-lg-8" id="jobtitle">
-                                            <label for="jobtitle">Job Title: </label>
-                                            <input type="text" class="form-control">
-                                        </div>
-                                        <div class="col-lg-8" id="jobtype">
-                                            <label for="jobtype">Job Type:</label>
-                                            <input type="text" class="form-control">
-                                        </div>
-                                        <div class="col-lg-8" id="jobarea">
-                                            <label for="jobarea">Job Area/Field:</label>
-                                            <input type="text" class="form-control">
-                                        </div>
-                                        <div class="col-lg-8" id="joblevel">
-                                            <label for="joblevel">Experience Level:</label>
-                                            <input type="text" class="form-control">
-                                        </div>
-                                        <div class="col-lg-8" id="joblocation">
-                                            <label for="joblocation">Office Location:</label>
-                                            <input type="text" class="form-control">
-                                        </div>
-                                        <div class="col-lg-8" id="jobsalary">
-                                            <label for="joblocation">Avg Salary:</label>
-                                            <input type="text" class="form-control">
-                                        </div>
-                                        <div class="col-lg-8" id="jobvisa">
-                                            <label for="jobvisa">Visa Sponsorship:</label>
-                                            <input type="text" class="form-control">
-                                        </div>
-                                        <div class="col-lg-8" id="jobdescription">
-                                            <label for="jobdescription">Job Description:</label>
-                                            <input type="text" class="form-control">
-                                        </div>
+                                <form role="form" id = "jobpost">
+                                    <!--<div class="form-group">-->
+                                    <div class="col-lg-8" id="jobcompany">
+                                        <label for="jobcompany">Company: </label>
+                                        <p>
+                                            <?php
+                                                if(strcmp($company, '') == 0){
+                                                    echo "Please edit your profile to add company name!";
+                                                }
+                                                else{
+                                                    echo $company;
+                                                }
+                                            ?>
+                                        </p>
                                     </div>
+                                    <div class="col-lg-8" id="jobtitle">
+                                        <label for="jobtitle">Job Title: </label>
+                                        <input type="text" class="form-control" required="required">
+                                    </div>
+                                    <div class="col-lg-8" id="jobtype">
+                                        <label for="jobtype">Job Type:</label>
+                                        <input type="text" class="form-control" required="required">
+                                    </div>
+                                    <div class="col-lg-8" id="jobarea">
+                                        <label for="jobarea">Job Area/Field:</label>
+                                        <input type="text" class="form-control" required="required">
+                                    </div>
+                                    <div class="col-lg-8" id="joblevel">
+                                        <label for="joblevel">Experience Level:</label>
+                                        <input type="text" class="form-control" required="required">
+                                    </div>
+                                    <div class="col-lg-8" id="joblocation">
+                                        <label for="joblocation">Office Location:</label>
+                                        <input type="text" class="form-control" required="required">
+                                    </div>
+                                    <div class="col-lg-8" id="jobsalary">
+                                        <label for="joblocation">Avg Salary:</label>
+                                        <input type="text" class="form-control" required="required">
+                                    </div>
+                                    <div class="col-lg-8" id="jobvisa">
+                                        <label for="jobvisa">Visa Sponsorship:</label>
+                                        <input type="text" class="form-control" required="required">
+                                    </div>
+                                    <div class="col-lg-8" id="jobdescription">
+                                        <label for="jobdescription">Job Description:</label>
+                                        <input type="text" class="form-control" required="required">
+                                    </div>
+                                    <!--</div>-->
                                 </form>
                         </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Add Posting</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="addJobPost">Add Posting</button>
                 </div>
             </div>
         </div>

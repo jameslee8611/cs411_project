@@ -219,10 +219,6 @@ class board_model extends Model {
 
         return $companyName[0]['name'];
     }
-
-    public function addJobPosting(){
-        
-    }
     
     // private functions
     
