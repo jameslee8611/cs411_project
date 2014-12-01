@@ -1,3 +1,7 @@
+table{
+	width: 100%;
+}
+
 .jobID, #currentJobId{
 	display: none;
 }
@@ -7,7 +11,7 @@
 }
 
 #searchbar input{
-	width: 90%;
+	width: 89.9%;
 	margin-top: 20px;
 	display: inline-block;
 }

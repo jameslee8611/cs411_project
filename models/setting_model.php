@@ -116,18 +116,20 @@ class Setting_Model extends Model {
         $address = $_POST['address'];
         $school = $_POST['school'];
         $visa = $_POST['profile-visa'];
-        
+
+
         if(isset($_FILES['resume'])){
             $resume = $_FILES['resume']['tmp_name'];
-            $full_path = $_SERVER['DOCUMENT_ROOT'] . '/comjob/cs411_project/public/resume/' . $userId . '.pdf';
+            $resumeName = $userId . '_' . $_FILES['resume']['name'];
+
+            $full_path = $_SERVER['DOCUMENT_ROOT'] . '/comjob/cs411_project/public/resume/' . $resumeName;
             
             if(!move_uploaded_file($resume, $full_path)){
                 return false;
             }
             else{
-                $resume = $userId . '.pdf';
                 $query = "UPDATE STUDENT SET firstname = '$firstname', lastname = '$lastname', phoneNumber = '$phoneNumber', personalLink = '$personalLink', 
-                    school = '$school', visaStatus = '$visa', address = '$address', resume = '$resume' WHERE userID = '$userId'";
+                    school = '$school', visaStatus = '$visa', address = '$address', resume = '$resumeName' WHERE userID = '$userId'";
             }
         }else{
             $query = "UPDATE STUDENT SET firstname = '$firstname', lastname = '$lastname', phoneNumber = '$phoneNumber', personalLink = '$personalLink', 

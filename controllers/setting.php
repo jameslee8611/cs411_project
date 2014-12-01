@@ -95,7 +95,7 @@ class Setting extends Controller {
 
         if ($result)
         {
-            header('Location: ' .URL.'setting');
+            header('Location: ' .URL.'board/jobboard/');
             exit;
         }
         else
@@ -112,7 +112,11 @@ class Setting extends Controller {
         if ($result)
         {
             //header('Location: ' .URL.'setting');
-            echo($result);
+            if($result){
+                echo("Update Successful!");
+            }else{
+                echo("Failed to Update!");
+            }
             exit;
         }
         else
