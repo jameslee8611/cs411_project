@@ -34,69 +34,97 @@
                         <div class="container">
                             <h2>Post a Job Here</h2>
                             <p>Try to fill in all information. It will help you to find most suitable applicant</p>
-                                <form role="form" id = "jobpost">
+                                <form role="form" method="post" id = "jobpost">
                                     <!--<div class="form-group">-->
-                                    <div class="col-lg-8" id="jobcompany">
-                                        <label for="jobcompany">Company: </label>
-                                        <p>
-                                            <?php
-                                                if(strcmp($company, '') == 0){
-                                                    echo "Please edit your profile to add company name!";
-                                                }
-                                                else{
-                                                    echo $company;
-                                                }
-                                            ?>
-                                        </p>
+                                    <div class="row">
+                                        <div class="col-lg-8" id="jobcompany">
+                                            <label for="jobcompany">Company: </label>
+                                            <p>
+                                                <?php
+                                                    if(strcmp($company, '') == 0){
+                                                        echo "Please edit your profile to add company name!";
+                                                    }
+                                                    else{
+                                                        echo $company;
+                                                    }
+                                                ?>
+                                            </p>
+                                        </div>
                                     </div>
-                                    <div class="col-lg-8" id="jobtitle">
-                                        <label for="jobtitle">Job Title: </label>
-                                        <input type="text" class="form-control" required="required">
-                                    </div>
-                                    <div class="col-lg-8" id="jobtype">
-                                        <label for="jobtype">Job Type:</label>
-                                        <input type="text" class="form-control" required="required">
-                                    </div>
-                                    <div class="col-lg-8" id="jobarea">
-                                        <label for="jobarea">Job Area/Field:</label>
-                                        <input type="text" class="form-control" required="required">
-                                    </div>
-                                    <div class="col-lg-8" id="joblevel">
-                                        <label for="joblevel">Experience Level:</label>
-                                        <input type="text" class="form-control" required="required">
-                                    </div>
-                                    <div class="col-lg-8" id="joblocation">
-                                        <label for="joblocation">Office Location:</label>
-                                        <input type="text" class="form-control" required="required">
-                                    </div>
-                                    <div class="col-lg-8" id="jobsalary">
-                                        <label for="joblocation">Avg Salary:</label>
-                                        <input type="text" class="form-control" required="required">
-                                    </div>
-                                    <div class="col-lg-8" id="jobvisa">
-                                        <label for="jobvisa">Visa Sponsorship:</label>
-                                        <input type="text" class="form-control" required="required">
-                                    </div>
-                                    <div class="col-lg-8" id="jobdescription">
-                                        <label for="jobdescription">Job Description:</label>
-                                        <input type="text" class="form-control" required="required">
-                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-8">
+                                            <label for="jobtitle">Job Title: </label>
+                                            <input type="text" class="form-control" id="jobtitle" name="jobtitle" required="required" />
+                                        </div>
+                                    </div><br/>
+                                    <div class="row">
+                                        <div class="col-lg-8">
+                                            <label for="jobtype">Job Type:</label>
+                                            <input type="text" class="form-control" id="jobtype" name="jobtype" required="required">
+                                        </div>
+                                    </div><br/>
+                                    <div class="row">
+                                        <div class="col-lg-8">
+                                            <label for="jobarea">Job Area/Field:</label>
+                                            <input type="text" class="form-control" id="jobarea" name="jobarea" required="required">
+                                        </div>
+                                    </div><br/>
+                                    <div class="row">
+                                        <div class="col-lg-8">
+                                            <label for="joblevel">Experience Level:</label>
+                                            <input type="text" class="form-control" id="joblevel" name="joblevel" required="required">
+                                        </div>
+                                    </div><br/>
+                                    <div class="row">
+                                        <div class="col-lg-8">
+                                            <label for="joblocation">Office Location:</label>
+                                            <input type="text" class="form-control" id="joblocation" name="joblocation" required="required">
+                                        </div>
+                                    </div><br/>
+                                    <div class="row">
+                                        <div class="col-lg-8">
+                                            <label for="jobskill">Required Skills:</label>
+                                            <input type="text" class="form-control" id="jobvisa" name="jobskill" required="required">
+                                        </div>
+                                    </div><br/>
+                                    <div class="row">
+                                        <div class="col-lg-8">
+                                            <label for="joblocation">Avg Salary:</label>
+                                            <input type="text" class="form-control" id="jobsalary" name="jobsalary" required="required">
+                                        </div>
+                                    </div><br/>
+                                    <div class="row">
+                                        <div class="col-lg-8">
+                                            <label for="jobvisa">Visa Sponsorship:</label>
+                                            <input type="text" class="form-control" id="jobvisa" name="jobvisa" required="required">
+                                        </div>
+                                    </div><br/>
+                                    <div class="row">
+                                        <div class="col-lg-8" id="jobdescription">
+                                            <label for="jobdescription">Job Description:</label>
+                                            <input type="text" class="form-control" id="jobdescription" name="jobdescription" required="required">
+                                        </div>
+                                    </div><br/>
                                     <!--</div>-->
+                                    <div class="row">
+                                        <div class="col-lg-8">
+                                            <input type="button" class="btn btn-primary" id="job-close" data-dismiss="modal" value="Close" />
+                                            <input class="btn btn-default" id="job-submit" type="submit" value="Add Job Posting"/>
+                                        </div>
+                                    </div>
                                 </form>
                         </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="addJobPost">Add Posting</button>
-                </div>
+                
             </div>
         </div>
     </div>
 
     <div class="col-lg-6" id="accountSettings">
         <?php
-	    if (isset($this->data) || !empty($this->data)) {
-                echo '<table id="job-container"><tbody id="job-body">';
+            echo '<table id="job-container"><tbody id="job-body">';
+    	    if (isset($this->data) || !empty($this->data)) {
+                    
                 foreach ($this->data as $info) {
                     echo '<tr>'
                         . '<td>'
@@ -108,8 +136,9 @@
                         . '</td>'
                         .'</tr>';
                 }
-                echo '</tbody></table>';
+                    
             }
+            echo '</tbody></table>';
         ?>
     </div>
     

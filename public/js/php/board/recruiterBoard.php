@@ -60,42 +60,67 @@ var updateJob = function(jobId, jobTitle) {
     });
 };
 
-document.getElementById("addJobPost").onclick = function(){
-    var addJobPost_request;
+//document.getElementById("addJobPost").onclick = function(){
+var addJobPost_request;
+$('#jobpost').submit(function(event) {
+    
+    event.preventDefault();
+
     if (addJobPost_request){
         addJobPost_request.abort();
     }
 
-    var $input = $('jobpost').find("input, select, button, textarea, div");
-    var serializedData = $(this).serialize();
+    var $input = $(this).find("input, select, button, textarea, div");
+    var serializedData = $(this).serializeArray();
+    var company = <?php echo json_encode($this->companyInfo); ?>;
+    serializedData.push({name: 'jobcompany', value: company});
     $input.prop("disabled", true);
-    
-    /*
+
     request = $.ajax({
-        url: <?php echo json_encode(URL . 'setting/addCompany/'); ?>,
+        url: <?php echo json_encode(URL . 'board/addJobPost/'); ?>,
         type: 'post',
         data: serializedData,
         success: function(result) {
+            
             var data = JSON.parse(result);
             if (!data.error_msg) {
-                $("#company_list").append('<option value=' + data.id + '>' + data.company + '</option>');
+                //alert(data.company + ' ' + data.title + ' ' + data.area + ' ' + data.type + ' ' + data.location + ' ' + data.jobId + ' ' + data.postedDate);
+                
+                $('#job-container').find('tbody:last').append(
+                    '<tr>' +
+                        '<td>' +
+                            '<a class="job-title" id="' + data.jobId + '" data-toggle="modal" data-target="#jobModal" onclick="updateJob(\'' + data.jobId + '\',\'' + data.title + '\')"><h4>' + data.title + '</h4></a>' +
+                            '<div>' + data.company + ' - ' + data.location + '</div>' +
+                            '<div class="job-description">' + data.description + '</div>' +
+                            '<div>' + data.postedDate + '</div>' +
+                            '<div class="jobID">JobID: ' + data.jobId + '</div>' +
+                        '</td>' +
+                    '</tr>'
+                );
+                
+ 
             }
-            else alert(data.error_msg);
+            else{
+                alert(data.error_msg);
+            }
         }
     });
 
     request.always(function() {
         $input.prop("disabled", false);
-        $('#company_name').val('');
-        $('#company_description').val('');
-        $('#company_url').val('');
-        $('#addCompanyBox').hide();
+        $('input[type="text"]').val('');
     });
 
     event.preventDefault();
-    */
-};
+    
+    
+});
+$('#job-submit').click(function(){
+    $('#myModal').modal('hide');
+});
 
-
+$('#job-close').click(function() {
+    $('input[type="text"]').val('');
+});
 
 </script>
