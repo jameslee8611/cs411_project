@@ -4,7 +4,12 @@ var url = <?php echo json_encode(URL); ?>;
 
 var pdfViewUpdate = function(resumeURL) {
     // change pdf path for pdfViewModal
-}
+};
+
+var changeJobProcessBody = function(jobId, recruiterId) {
+    $('#set-process-jobId').val(jobId);
+    $('#set-process-recruiterId').val(recruiterId);
+};
 
 var updateProgressStatus = function(studentId, jobId, option) {
     // update changed statusId

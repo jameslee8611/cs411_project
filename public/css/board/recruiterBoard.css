@@ -37,3 +37,12 @@
 .student-name {
     cursor: pointer;
 }
+
+#job-modal-title a {
+    display: inline;
+    cursor: pointer;
+}
+
+#job-modal-title h4 {
+    display: inline;
+}
