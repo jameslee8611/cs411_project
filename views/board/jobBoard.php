@@ -25,9 +25,17 @@
 		    if (isset($this->data) || !empty($this->data)) {
 		    	echo '<table id="job-container"><tbody id="job-body">';
 		        foreach ($this->data as $info) {
-		        	echo '<tr><td>'.'<a class="job-title" data-toggle="modal" data-target="#applyModal"><h4>'. $info['title'] . '</h4></a>' . '<div>' . $info['companyName'] . ' ' . $info['location'] . '</div>'
-		        	. '<div class="job-description">'. $info['description'] . '</div>' . '<div>'. $info['postedDate'] . '</div>' . '<div class="jobID">'
-		        	. $info['jobID'] . '</div>' .'</td></tr>';
+		        	$content = '<tr><td>'.'<a class="job-title" data-toggle="modal" data-target="#applyModal"><h4>'. $info['title'] . 
+		        	'</h4></a>' . '<div>Company: ' . $info['companyName'] . '  /  Location: ' . $info['location'] . '</div>' . '<div class="job-description">';
+		        	if(strlen($content) > 160){
+		        		$content = $content . substr($info['description'], 0, 217) . " ... " . '</div>' . '<div>Date Posted: '. $info['postedDate'] . '</div>' . 
+		        		'<div class="jobID">' . $info['jobID'] . '</div>' .'</td></tr>';
+		        		
+		        	}else{
+		        		$content = $content . $info['description'] . '</div>' . '<div>Date Posted: '. $info['postedDate'] . '</div>' . '<div class="jobID">' 
+		        		. $info['jobID'] . '</div>' .'</td></tr>';
+		        	}
+		        	echo $content;
 		        }
 		        echo '</tbody></table>';
 		    }

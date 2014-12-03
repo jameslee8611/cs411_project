@@ -6,6 +6,18 @@ input{
 	text-align: center;
 }
 
+select{
+	margin-top: 5px;
+}
+
+#profileFeedBack{
+	color: green;
+}
+
+#resume{
+	display: none;
+}
+
 #menu{
 	list-style-type: none;
 }

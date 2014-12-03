@@ -80,4 +80,10 @@ class board extends Controller {
             echo "Invalid Access!";
         }
     }
+
+    public function addJobPost()
+    {
+        $result = $this->model->addJobPost();
+        print_r($result);
+    }
 }

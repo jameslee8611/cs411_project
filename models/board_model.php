@@ -248,6 +248,62 @@ class board_model extends Model {
         }
     }
     
+    public function addJobPost()
+    {
+        
+        $company = $_POST['jobcompany'];
+        $title = $_POST['jobtitle'];
+        $type = $_POST['jobtype'];
+        $area = $_POST['jobarea'];
+        $experience = $_POST['joblevel'];
+        $location = $_POST['joblocation'];
+        $skill = $_POST['jobskill'];
+        $salary = $_POST['jobsalary'];
+        $visa = $_POST['jobvisa'];
+        $description = $_POST['jobdescription'];
+        $userId = Session::get('userId');
+
+        $result;
+        $query = "SELECT title FROM Job WHERE companyName = '$company' AND title = '$title' AND location = '$location'";
+        $queryFindDup = $this->db->prepare($query);
+        $queryFindDupSuccess = $queryFindDup->execute();
+
+        if($queryFindDupSuccess && !empty($queryFindDup->fetchAll())){
+            $result = '{"error_msg": "Duplicate Posting"}';
+        }
+        else {
+            $query = "INSERT INTO Job (recruiterID,title,companyName,type,area,level,description,location,requredSkill,salary,seekerVisaType)
+                VALUES (:userId,:title,:company,:type,:area,:experience,:description,:location,:skill,:salary,:visa)";
+            $queryJobPost = $this->db->prepare($query);
+            $queryJobPost->execute(array(':userId'=>$userId, ':title'=>$title, ':company'=>$company, ':type'=>$type, ':area'=>$area, 
+                ':experience'=>$experience, ':description'=>$description, ':location'=>$location, ':skill'=>$skill, ':salary'=>$salary, ':visa'=>$visa));
+            $jobId = $this->db->lastInsertId();
+
+            $query = "SELECT * FROM Job WHERE recruiterID = '$userId' AND title = '$title' AND companyName = '$company' AND description = '$description'";
+            $queryPostedDate = $this->db->prepare($query);
+            $queryPostedDateSuccess = $queryPostedDate->execute();
+            $postedDate = $queryPostedDate->fetchAll();
+            $postedDate = $postedDate[0]['postedDate'];
+
+            if(!$queryPostedDateSuccess) {
+                echo "Error Occurs while query posted date\r\n"
+                    ."\t addJobPost() in Board Model\r\n";
+                exit;
+            }
+
+            if(!$queryJobPost){
+                $result = '{"error_msg": "Error occurred while inserting Job Post into db"}';
+            }
+            else {
+                $result = '{"error_msg": "","recruiterId": "'.$userId.'", "company": "'.$company.'", "title": "'.$title.'",
+                    "type": "'.$type.'", "area": "'.$area.'", "level": "'.$experience.'", "location": "'.$location.'", "skill": "'.$skill.'",
+                    "salary": "'.$salary.'", "description": "'.$description.'", "visa": "'.$visa.'", "jobId": "'.$jobId.'", "postedDate": "'.$postedDate.'"}';
+            }
+
+        }
+        return $result;
+        
+
     public function applyJob()
     {
         $jobId = $_POST['jobId'];
@@ -273,10 +329,10 @@ class board_model extends Model {
             }
         }
 
+
     }
 
     // private functions
-    
     private function formatter($jobID, $title, $companyName, $description, $location, $postedDate) 
     {
         $result = '{

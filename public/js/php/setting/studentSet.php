@@ -11,7 +11,7 @@
         $("#address").val(profile[0]["address"]);
         $("#school").val(profile[0]["school"]);
         $("#profile-visa option[value='" + profile[0]["visaStatus"] + "']" ).prop("selected", true);
-        $("#current-resume").html(" Current Resume: " + profile[0]["resume"]);
+        $("#current-resume").html(" Current Resume: " + profile[0]["resume"].substr(2));
 
         $("#min-salary").val(preference[0]["salary"]);
         $("#skill-primary").val(preference[0]["skill"]);
@@ -29,6 +29,7 @@
     })
 
     $("#account").click(function() {
+        $("#profileFeedBack").html("");
     	$("#accountSettings").show();
     	$("#profileResume").hide();
     	$("#searchPref").hide();
@@ -37,6 +38,7 @@
 
 
     $("#preference").click(function() {
+        $("#profileFeedBack").html("");
         $("#searchPref").show();
         $("#accountSettings").hide();
         $("#profileResume").hide();
@@ -44,10 +46,21 @@
     })
 
     $("#progress").click(function() {
+        $("#profileFeedBack").html("");
         $("#appProgress").show();
         $("#accountSettings").hide();
         $("#profileResume").hide();
         $("#searchPref").hide();
+    })
+
+    $("#upload-resume").click(function(){
+        $("#resume").trigger("click");
+    })
+
+    $("#resume").on("change", function(){
+        var path = this.value;
+        var fileName = path.substring(path.lastIndexOf("\\")+1);
+        $("#current-resume").html(" Current Resume: " + fileName);
     })
 
     $("#profileForm").submit(function(event){
@@ -77,7 +90,7 @@
             processData: false,
             contentType: false,
             success: function(data){
-                
+                $("#profileFeedBack").html("&nbsp;&nbsp;&nbsp;" + data);
             }
         })
     })

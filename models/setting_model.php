@@ -107,8 +107,7 @@ class Setting_Model extends Model {
 
     public function updateProfile()
     {
-        //$username = Session::get('username');
-        $userId = Session::get('userId');
+        $username = Session::get('username');
         $firstname = $_POST['firstname'];
         $lastname = $_POST['lastname'];
         $phoneNumber = $_POST['phonenum'];
@@ -116,25 +115,30 @@ class Setting_Model extends Model {
         $address = $_POST['address'];
         $school = $_POST['school'];
         $visa = $_POST['profile-visa'];
-        
+
+
         if(isset($_FILES['resume'])){
             $resume = $_FILES['resume']['tmp_name'];
-            $full_path = $_SERVER['DOCUMENT_ROOT'] . '/comjob/cs411_project/public/resume/' . $userId . '.pdf';
+            $resumeName = $userId . '_' . $_FILES['resume']['name'];
+
+            $full_path = $_SERVER['DOCUMENT_ROOT'] . '/comjob/cs411_project/public/resume/' . $resumeName;
             
             if(!move_uploaded_file($resume, $full_path)){
                 return false;
             }
             else{
-                $resume = $userId . '.pdf';
                 $query = "UPDATE STUDENT SET firstname = '$firstname', lastname = '$lastname', phoneNumber = '$phoneNumber', personalLink = '$personalLink', 
-                    school = '$school', visaStatus = '$visa', address = '$address', resume = '$resume' WHERE userID = '$userId'";
+                    school = '$school', visaStatus = '$visa', address = '$address', resume = '$resumeName' WHERE userID = '$userId'";
             }
         }else{
             $query = "UPDATE STUDENT SET firstname = '$firstname', lastname = '$lastname', phoneNumber = '$phoneNumber', personalLink = '$personalLink', 
                 school = '$school', visaStatus = '$visa', address = '$address' WHERE userID = '$userId'";
         }
 
-        $statement = $this->db->prepare($query);
+        $statement = $this->db->prepare("
+            UPDATE STUDENT SET firstname = '$firstname', lastname = '$lastname', phoneNumber = '$phoneNumber', personalLink = '$personalLink', 
+            school = '$school', visaStatus = '$visa', address = '$address' WHERE email = '$username'
+        ");
         $statement->execute();
 
         if($statement){

@@ -12,7 +12,7 @@
     	$("#profileResume").hide();
     	$("#searchPref").hide();
     	$("#appProgress").hide();
-    });
+    });d
     
     $('#addCompany').click(function() {
         $('#addCompanyBox').toggle();
