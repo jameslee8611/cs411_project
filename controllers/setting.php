@@ -15,6 +15,7 @@ class Setting extends Controller {
     {
         if (Session::get('isStudent')) {
             $this->view->profile = $this->model->getProfile(Session::get('userId'));
+            $this->view->preference = $this->model->getPreference(Session::get('userId'));
             $this->view->render('setting/studentSet');
         }
         else {
@@ -94,7 +95,7 @@ class Setting extends Controller {
 
         if ($result)
         {
-            header('Location: ' .URL.'setting');
+            header('Location: ' .URL.'board/jobboard/');
             exit;
         }
         else
@@ -111,7 +112,11 @@ class Setting extends Controller {
         if ($result)
         {
             //header('Location: ' .URL.'setting');
-            echo($result);
+            if($result){
+                echo("Update Successful!");
+            }else{
+                echo("Failed to Update!");
+            }
             exit;
         }
         else

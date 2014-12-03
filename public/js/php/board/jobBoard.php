@@ -24,16 +24,27 @@
     	if(search != ''){
 	    	for(var i = 0; i < length; i++){
 				if((jobs[i].title.toLowerCase()).indexOf(search.toLowerCase()) > -1){
-					$("#job-body").append('<tr><td>' + '<a href="#" class="job-title"><h4>' + jobs[i].title + '</h4></a>' + '<div>' + 
-						jobs[i].companyName + ' ' + jobs[i].location + '</div>' + '<div class="job-description">' + jobs[i].description 
-						+ '</div>' + '<div>' + jobs[i].postedDate + '</div>' + '</td></tr>');
+                    if(jobs[i].description.length > 219){
+                        var description = jobs[i].description.substr(0, 217) + " ... ";
+                    }else{
+                        var description = jobs[i].description;
+                    }
+
+					$("#job-body").append('<tr><td>' + '<a href="#" class="job-title"><h4>' + jobs[i].title + '</h4></a>' + '<div>Company: ' + 
+						jobs[i].companyName + '  /  Location: ' + jobs[i].location + '</div>' + '<div class="job-description">' + description 
+						+ '</div>' + '<div>Date Posted: ' + jobs[i].postedDate + '</div>' + '</td></tr>');
 				}
 			}
 		}else{
 			for(var i = 0; i < length; i++){
-				$("#job-body").append('<tr><td>' + '<a href="#" class="job-title"><h4>' + jobs[i].title + '</h4></a>' + '<div>' + 
-					jobs[i].companyName + ' ' + jobs[i].location + '</div>' + '<div class="job-description">' + jobs[i].description 
-					+ '</div>' + '<div>' + jobs[i].postedDate + '</div>' + '</td></tr>');
+                if(jobs[i].description.length > 219){
+                    var description = jobs[i].description.substr(0, 217) + " ... ";
+                }else{
+                    var description = jobs[i].description;
+                }
+				$("#job-body").append('<tr><td>' + '<a href="#" class="job-title"><h4>' + jobs[i].title + '</h4></a>' + '<div>Company: ' + 
+					jobs[i].companyName + '  /  Location: ' + jobs[i].location + '</div>' + '<div class="job-description">' + description 
+					+ '</div>' + '<div>Date Posted: ' + jobs[i].postedDate + '</div>' + '</td></tr>');
 			}
 		}
     }
@@ -59,13 +70,23 @@
 					data.companyName + ' Location: ' + data.location + '</div>' + '<div>Type: ' + data.type + '</div>'  
 					+ '<div>Area: ' + data.area + ' Level: ' + data.level + '</div>' + '<div>Skill: ' + data.requiredSkill + '</div>' 
 					+ '<div>Salary: ' + data.salary + ' Date Posed: ' + data.postedDate + ' Visa Type: ' + data.seekerVisaType + '</div>'
-					+ '<div class="job-description">' + data.description);
+					+ '<div class="job-description">' + data.description + '</div>' + '<div id="currentJobId">' + jobId + '</div>');
     		}
     	})
     }
 
     $("#applyButton").click(function(){
-    	
+    	var jobId = $("#currentJobId").html();
+    	var url = <?php echo json_encode(URL); ?>;
+		var post_url = url + 'board/ajax_applyJob';
+    	$.ajax({
+    		url: post_url,
+    		type: "post",
+    		data: {"jobId" : jobId},
+    		success: function(data){
+    			alert(data);
+    		}
+    	})
     })
 
 </script>

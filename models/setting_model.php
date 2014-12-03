@@ -116,6 +116,25 @@ class Setting_Model extends Model {
         $school = $_POST['school'];
         $visa = $_POST['profile-visa'];
 
+
+        if(isset($_FILES['resume'])){
+            $resume = $_FILES['resume']['tmp_name'];
+            $resumeName = $userId . '_' . $_FILES['resume']['name'];
+
+            $full_path = $_SERVER['DOCUMENT_ROOT'] . '/comjob/cs411_project/public/resume/' . $resumeName;
+            
+            if(!move_uploaded_file($resume, $full_path)){
+                return false;
+            }
+            else{
+                $query = "UPDATE STUDENT SET firstname = '$firstname', lastname = '$lastname', phoneNumber = '$phoneNumber', personalLink = '$personalLink', 
+                    school = '$school', visaStatus = '$visa', address = '$address', resume = '$resumeName' WHERE userID = '$userId'";
+            }
+        }else{
+            $query = "UPDATE STUDENT SET firstname = '$firstname', lastname = '$lastname', phoneNumber = '$phoneNumber', personalLink = '$personalLink', 
+                school = '$school', visaStatus = '$visa', address = '$address' WHERE userID = '$userId'";
+        }
+
         $statement = $this->db->prepare("
             UPDATE STUDENT SET firstname = '$firstname', lastname = '$lastname', phoneNumber = '$phoneNumber', personalLink = '$personalLink', 
             school = '$school', visaStatus = '$visa', address = '$address' WHERE email = '$username'
@@ -235,5 +254,67 @@ class Setting_Model extends Model {
         }
         
         return $result;
+    }
+
+    public function getProfile($userId)
+    {
+        $query = "SELECT firstname, lastname, personalLink, phoneNumber, address, visaStatus, school, resume FROM STUDENT WHERE userID = '$userId'";
+        $statement = $this->db->prepare($query);
+        $statement->execute();
+        $profile = $statement->fetch();
+        
+        $result = Array();
+        
+        array_push($result, $this->profileFormatter($profile['firstname'], $profile['lastname'], $profile['personalLink'], 
+           $profile['phoneNumber'], $profile['address'], $profile['visaStatus'], $profile['school'], $profile['resume']));
+        
+        return $result;
+
+    }
+
+    public function getPreference($userId)
+    {
+        $query = "SELECT * FROM PREFERENCE WHERE uID = $userId";
+        $statement = $this->db->prepare($query);
+        $statement->execute();
+        $preference = $statement->fetch();
+        
+        $result = Array();
+        
+        array_push($result, $this->preferenceFormatter($preference['minSalary'], $preference['primarySkill'], $preference['area'], 
+           $preference['level'], $preference['position'], $preference['visa']));
+        
+        return $result;
+
+    }
+
+    private function preferenceFormatter($salary, $skill, $area, $level, $position, $visa) 
+    {
+        $result = '{
+                        "salary": "' . $salary . '",
+                        "skill": "' . $skill . '",
+                        "area": "'. $area . '",
+                        "level": "'. $level . '",
+                        "position": "' . $position . '",
+                        "visa": "' . $visa . '"';
+        $result .=  ' }';
+        
+        return json_decode($result, true);
+    }
+
+    private function profileFormatter($firstname, $lastname, $link, $number, $address, $visa, $school, $resume) 
+    {
+        $result = '{
+                        "firstname": "' . $firstname . '",
+                        "lastname": "' . $lastname . '",
+                        "personalLink": "'. $link . '",
+                        "phoneNumber": "'. $number . '",
+                        "address": "' . $address . '",
+                        "visaStatus": "' . $visa . '",
+                        "school": "' . $school . '",
+                        "resume": "' . $resume . '"';
+        $result .=  ' }';
+        
+        return json_decode($result, true);
     }
 }

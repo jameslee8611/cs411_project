@@ -62,12 +62,22 @@ class board_model extends Model {
         } 
         else 
         {
-            echo 'Error occurred while getting createFilterQuery!<br />';
+            $query = "SELECT jobID, title, companyName, location, description, postedDate FROM Job";
+            $statement = $this->db->prepare($query);
+            $statement->execute();
+            $jobs = $statement->fetchAll();
+
+            foreach ($jobs as $row) 
+            {
+                array_push($result, $this->formatter($row['jobID'], $row['title'], $row['companyName'], $row['description'], $row['location'], $row['postedDate']));
+            }
+
+            /*echo 'Error occurred while getting createFilterQuery!<br />';
             echo '- in getjob() at board_model from board_controller<br /><br />';
             echo 'Possible error detail: <br />';
             echo '1. query statement<br />';
             echo $this->createFilterQuery($preference, $category) . '<br />';
-            exit;
+            exit;*/
         }
 
         return $result;
@@ -293,6 +303,33 @@ class board_model extends Model {
         }
         return $result;
         
+
+    public function applyJob()
+    {
+        $jobId = $_POST['jobId'];
+        $userId = Session::get('userId');
+
+        $query = "SELECT * FROM RELATIONJOBSTUDENT WHERE studentId = $userId AND jobId = $jobId";
+        $statement = $this->db->prepare($query);
+        $statement->execute();
+        $result = $statement->fetchAll();
+
+        if(sizeof($result) != 0){
+            return "You have already applied for this Job!";
+        }else{
+            $query = "INSERT INTO RELATIONJOBSTUDENT (studentId, jobId) VALUES ($userId, $jobId)";
+            $statement = $this->db->prepare($query);
+            $success = $statement->execute();
+            if($success){
+                return "Applied!";
+            }
+            else{
+                echo "Failed to apply!";
+                exit;
+            }
+        }
+
+
     }
 
     // private functions

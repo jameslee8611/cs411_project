@@ -11,36 +11,6 @@
 <div class="row" id="content">
 	<div class="col-lg-3">
 		<h2>Job Board</h2>
-		<table>
-			<tr>
-				<td><input type="radio" name="salary" id="500000"/><label for="500000">50000+</label></td>
-				<td><input type="radio" name="salary" id="600000"/><label for="600000">60000+</label></td>
-				<td><input type="radio" name="salary" id="700000"/><label for="700000">70000+</label></td>
-			</tr>
-			<tr>
-				<td><input type="radio" name="salary" id="800000"/><label for="800000">80000+</label></td>
-				<td><input type="radio" name="salary" id="900000"/><label for="900000">90000+</label></td>
-				<td><input type="radio" name="salary" id="1000000"/><label for="1000000">100000+</label></td>
-			</tr>
-		</table></br>
-
-		<table>
-			<tr>
-				<td><input type="radio" name="level" id="entry"/><label for="entry">Entry</label></td>
-				<td><input type="radio" name="level" id="junior"/><label for="junior">Junior</label></td>
-				<td><input type="radio" name="level" id="senior"/><label for="senior">Senior</label></td>
-			</tr>
-		</table></br>
-
-		<table>
-			<tr>
-				<td><input type="radio" name="job-type" id="full"/><label for="full">Full Time</label></td>
-				<td><input type="radio" name="job-type" id="contract"/><label for="contract">Contract</label></td>
-				<td><input type="radio" name="job-type" id="intern"/><label for="intern">Internship</label></td>
-				<td><input type="radio" name="job-type" id="other"/><label for="other">Other</label></td>
-			</tr>
-		</table>
-
 	</div>
 	<div class="col-lg-6">
 
@@ -55,9 +25,17 @@
 		    if (isset($this->data) || !empty($this->data)) {
 		    	echo '<table id="job-container"><tbody id="job-body">';
 		        foreach ($this->data as $info) {
-		        	echo '<tr><td>'.'<a class="job-title" data-toggle="modal" data-target="#applyModal"><h4>'. $info['title'] . '</h4></a>' . '<div>' . $info['companyName'] . ' ' . $info['location'] . '</div>'
-		        	. '<div class="job-description">'. $info['description'] . '</div>' . '<div>'. $info['postedDate'] . '</div>' . '<div class="jobID">'
-		        	. $info['jobID'] . '</div>' .'</td></tr>';
+		        	$content = '<tr><td>'.'<a class="job-title" data-toggle="modal" data-target="#applyModal"><h4>'. $info['title'] . 
+		        	'</h4></a>' . '<div>Company: ' . $info['companyName'] . '  /  Location: ' . $info['location'] . '</div>' . '<div class="job-description">';
+		        	if(strlen($content) > 160){
+		        		$content = $content . substr($info['description'], 0, 217) . " ... " . '</div>' . '<div>Date Posted: '. $info['postedDate'] . '</div>' . 
+		        		'<div class="jobID">' . $info['jobID'] . '</div>' .'</td></tr>';
+		        		
+		        	}else{
+		        		$content = $content . $info['description'] . '</div>' . '<div>Date Posted: '. $info['postedDate'] . '</div>' . '<div class="jobID">' 
+		        		. $info['jobID'] . '</div>' .'</td></tr>';
+		        	}
+		        	echo $content;
 		        }
 		        echo '</tbody></table>';
 		    }
@@ -74,7 +52,7 @@
       </div>
       <div class="modal-body" id="applyModalBody"></div>
       <div class="modal-footer">
-		<button type="button" class="btn" id="applyButton">Apply</button>
+		<button type="button" class="btn" id="applyButton" data-dismiss="modal">Apply</button>
 		<button type="button" class="btn" data-dismiss="modal">Close</button>
       </div>
     </div>
