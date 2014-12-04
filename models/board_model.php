@@ -522,8 +522,17 @@ class board_model extends Model {
 
     private function createFilterQuery($preference, $category)
     {
+        $studentId = Session::get('userId');
         $length = count($category);
-        $query = "SELECT jobID, title, companyName, location, description, postedDate FROM Job WHERE salary >= $preference[0]";
+        $query = "SELECT Job.jobID, Job.title, Job.companyName, Job.location, Job.description, Job.postedDate
+                  FROM (
+                        SELECT jobId
+                        FROM RelationJobStudent
+                        WHERE studentId = $studentId
+                       ) matchedJobs
+                  RIGHT JOIN Job
+                  ON matchedJobs.jobId = Job.jobID
+                  WHERE matchedJobs.jobId IS NULL AND salary >= $preference[0]";
 
         for($i=1; $i<$length; $i++){
             if($preference[$i] != NULL or $preference[$i] != ''){
