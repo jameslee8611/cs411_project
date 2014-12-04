@@ -66,6 +66,11 @@ class board extends Controller {
             die();
         }
     }
+    
+    public function ajax_delete_job_student_relation($jobId, $studentId)
+    {
+        echo $this->model->delete_job_student_relation($jobId, $studentId);
+    }
 
     public function ajax_getJobList()
     {

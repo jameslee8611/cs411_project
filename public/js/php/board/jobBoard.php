@@ -78,7 +78,7 @@
     $("#applyButton").click(function(){
     	var jobId = $("#currentJobId").html();
     	var url = <?php echo json_encode(URL); ?>;
-		var post_url = url + 'board/ajax_applyJob';
+        var post_url = url + 'board/ajax_applyJob';
     	$.ajax({
     		url: post_url,
     		type: "post",
@@ -88,6 +88,20 @@
     		}
     	})
     })
+    
+    var delete_job_student_relation = function(jobId, studentId) {
+        var url = <?php echo json_encode(URL); ?>;
+        var post_url = url + 'board/ajax_delete_job_student_relation/' + jobId + '/' + studentId + '/';
+    	$.ajax({
+            url: post_url,
+            type: "post",
+            data: 'json',
+            success: function(msg){
+                if (msg) alert(msg);
+                else $('#applied-'+jobId).hide(100);
+            }
+    	});
+    } ;
 
 </script>
 

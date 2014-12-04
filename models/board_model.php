@@ -34,6 +34,7 @@ class board_model extends Model {
         $result = Array();
         foreach ($jobs as $job) {
             array_push($result, json_decode('{"title": "'.$job['title'].'",
+                                              "jobId": "'.$job['jobId'].'",
                                               "date": "'.$job['postedDate'].'",
                                               "status": "'.$this->statusCode_to_status($job['status']).'"}', true));
         }
@@ -427,6 +428,19 @@ class board_model extends Model {
                 $result .= ', "user_info": ' . $data . ' }';
             }
             return $result;
+        }
+    }
+    
+    public function delete_job_student_relation($jobId, $studentId)
+    {
+        $statement = $this->db->prepare("Delete
+                                        From RelationJobStudent
+                                        Where jobId = $jobId AND studentId = $studentId
+                                        ");
+        $success = $statement->execute();
+        
+        if (!$success) {
+            return "Error occured while deleting information!";
         }
     }
 

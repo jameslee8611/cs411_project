@@ -11,21 +11,24 @@
 <div class="row" id="content">
 	<div class="col-lg-3">
 		<h2>Job Board</h2>
-                <h5>Application Progress</h5>
-                <div class="row">
+                <h4>Application Progress</h4>
+                <hr>
+                <div class="row application-status">
                     <div class="col-lg-10">
                         <div class="row">
-                            <div class="col-lg-6">Application</div>
-                            <div class="col-lg-3">Progress</div>
-                            <div class="col-lg-3">Option</div>
+                            <div class="col-lg-6"><h5>Application</h5></div>
+                            <div class="col-lg-3"><h5>Progress</h5></div>
+                            <div class="col-lg-3"><h5>Option</h5></div>
                         </div>
                         <?php
                         if (isset($this->job_data) || !empty($this->job_data)) {
                             foreach ($this->job_data as $job_info) {
-                                echo '<div class="row">
+                                echo '<div class="row applied-job-display" id="applied-'.$job_info['jobId'].'">
                                         <div class="col-lg-6">'.$job_info['title'].'</div>
                                         <div class="col-lg-3">'.$job_info['status'].'</div>
-                                        <div class="col-lg-3">'.'<button type="button" class="del-button btn btn-sm">Delete</button>'.'</div>
+                                        <div class="col-lg-3">
+                                            <button class="del-button btn btn-sm btn-default" onclick="delete_job_student_relation(\'' . $job_info['jobId'] . '\', \'' . Session::get('userId') . '\')">Delete</button>
+                                        </div>
                                      </div>';
                             }
                         }

@@ -119,10 +119,10 @@ var updateJob = function(jobId, jobTitle) {
         success: function(jsonData) {
             var data = JSON.parse(jsonData);
             var content='<table id="student-container"><tbody id="student-body">\n';
-            data.forEach(function(element, index, array) {
-                content += '<tr>\n';
-                content += '<a id="hitory_data" onclick="showHistory(\''+ jobId +'\')">Show History</a>\n';
-                content += '</tr>\n';
+            content += '<tr>\n';
+            content += '<a id="hitory_data" onclick="showHistory(\''+ jobId +'\')">Show History</a>\n';
+            content += '</tr>\n';
+            data.forEach(function(element, index, array) {    
                 content += '<tr>\n';
                 // add user information
                 content += '<td>' + element.firstname + ' ' + element.lastname + '</td>\n';
