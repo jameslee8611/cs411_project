@@ -96,8 +96,8 @@
                                     <div class="row">
                                         <div class="col-lg-8">
                                             <label for="jobvisa">Visa Sponsorship:</label></br>
-                                            <input type="radio" name="jobvisa" value="visa-yes" id="visa-yes" checked/><label for="visa-yes">Yes</label>
-                                            <input type="radio" name="jobvisa" value="visa-no" id="visa-no"/><label for="visa-no">No</label>
+                                            <input type="radio" name="jobvisa" value="1" id="visa-yes" checked/><label for="visa-yes">Yes</label>
+                                            <input type="radio" name="jobvisa" value="0" id="visa-no"/><label for="visa-no">No</label>
                                         </div>
                                     </div><br/>
                                     <div class="row">
@@ -127,13 +127,14 @@
     	    if (isset($this->data) || !empty($this->data)) {
                     
                 foreach ($this->data as $info) {
-                    echo '<tr>'
+                    echo '<tr id="job-'. $info['jobID'] .'">'
                         . '<td>'
                             . '<a class="job-title" id="'. $info['jobID'] .'" data-toggle="modal" data-target="#jobModal" onclick="updateJob(\''.$info['jobID'].'\',  \''.$info['title'].'\')"><h4>'. $info['title'] . '</h4></a>' 
                             . '<div>' . $info['companyName'] . ' - ' . $info['location'] . '</div>'
                             . '<div class="job-description">'. $info['description'] . '</div>' 
                             . '<div>'. $info['postedDate'] . '</div>' 
                             . '<div class="jobID">JobID: '. $info['jobID'] . '</div>'
+                            . '<a class="remove-job" onclick="removeJob(\''.$info['jobID'].'\')">remove this job</a>'
                         . '</td>'
                         .'</tr>';
                 }

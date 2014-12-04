@@ -307,12 +307,6 @@ class board_model extends Model {
         $skill = $_POST['jobskill'];
         $salary = $_POST['jobsalary'];
         $visa = $_POST['jobvisa'];
-        if($visa == 'visa-yes'){
-            $visa = '0';
-        }
-        else {
-            $visa = '1';
-        }
         $description = $_POST['jobdescription'];
         $userId = Session::get('userId');
 
@@ -444,6 +438,30 @@ class board_model extends Model {
             $statement->execute();
             $job = $statement->fetch();
             return '{"jobId": '.$job['jobID'].', "title": "'.$job['title'].'", "companyName": "'.$job['companyName'].'", "description": "'.$job['description'].'", "location": "'.$job['location'].'", "postedDate": "'.$job['postedDate'].'"}';
+        }
+    }
+    
+    public function removeJob($jobId)
+    {
+        $statement = $this->db->prepare("Delete
+                                        From Job
+                                        Where jobId = $jobId
+                                        ");
+        $statement->execute();
+        
+        if ($statement) {
+            $statement = $this->db->prepare("Delete
+                                            From RelationJobStudent
+                                            Where jobId = $jobId
+                                            ");
+            $statement->execute();
+            
+            if (!$statement) {
+                return 'Error occurs while removing job data from RelationJobStudent db!';
+            }
+        }
+        else {
+            return 'Error occurs while removing job data from Job db!';
         }
     }
 

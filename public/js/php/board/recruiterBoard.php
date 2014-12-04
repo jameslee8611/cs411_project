@@ -259,13 +259,14 @@ $('#jobpost').submit(function(event) {
             if (!data.error_msg) {
                 
                 $('#job-container').find('tbody:last').append(
-                    '<tr>' +
+                    '<tr id="job-' + data.jobId + '">' +
                         '<td>' +
                             '<a class="job-title" id="' + data.jobId + '" data-toggle="modal" data-target="#jobModal" onclick="updateJob(\'' + data.jobId + '\',\'' + data.title + '\')"><h4>' + data.title + '</h4></a>' +
                             '<div>' + data.company + ' - ' + data.location + '</div>' +
                             '<div class="job-description">' + data.description + '</div>' +
                             '<div>' + data.postedDate + '</div>' +
                             '<div class="jobID">JobID: ' + data.jobId + '</div>' +
+                            '<a class="remove-job" onclick="removeJob(\'' + data.jobId + '\')">remove this job</a>' +
                         '</td>' +
                     '</tr>'
                 );
@@ -289,5 +290,19 @@ $('#jobpost').submit(function(event) {
 $('#job-close').click(function() {
     $('input[type="text"]').val('');
 });
+
+var removeJob = function(jobId) {
+    var url = <?php echo json_encode(URL); ?>;
+    var post_url = url + 'board/ajax_removeJob/' + jobId + '/';
+    $.ajax({
+        url: post_url,
+        type: "post",
+        data: 'json',
+        success: function(error_msg){
+            if (error_msg) alert(error_msg);
+            else $('#job-'+jobId).hide(100);
+        }
+    });
+}
 
 </script>

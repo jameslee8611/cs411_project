@@ -54,3 +54,7 @@
 #hitory_data {
     cursor : pointer;
 }
+
+.remove-job {
+    cursor: pointer;
+}

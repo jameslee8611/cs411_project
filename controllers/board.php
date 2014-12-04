@@ -109,6 +109,12 @@ class board extends Controller {
         print_r($result);
     }
     
+    public function ajax_removeJob($jobId)
+    {
+        $result = $this->model->removeJob($jobId);
+        echo $result;
+    }
+    
     public function ajax_change_job_process()
     {
         $result = $this->model->change_job_process();
