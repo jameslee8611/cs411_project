@@ -1,8 +1,4 @@
 <?php
-/**
- * @author  Seungchul Lee
- * @date    July 5, 2014
- */
 
 class Index extends Controller {
 

@@ -1,12 +1,5 @@
 <?php
 
-/**
- * Controller class is a neccessary part of MVC structure.
- * 
- * @author  Seungchul Lee
- * @date    July 1, 2014
- */
-
 class Controller {
     
     function __construct() {
