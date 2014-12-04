@@ -118,7 +118,7 @@ class Setting_Model extends Model {
             $resume = $_FILES['resume']['tmp_name'];
             $resumeName = $userId . '_' . $_FILES['resume']['name'];
 
-            $full_path = $_SERVER['DOCUMENT_ROOT'] . '/comjob/cs411_project/public/resume/' . $resumeName;
+            $full_path = $_SERVER['DOCUMENT_ROOT'] . '/comjob/public/resume/' . $resumeName;
             
             if(!move_uploaded_file($resume, $full_path)){
                 return false;
