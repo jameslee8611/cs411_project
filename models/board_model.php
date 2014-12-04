@@ -373,12 +373,8 @@ class board_model extends Model {
             $query = "INSERT INTO RELATIONJOBSTUDENT (studentId, jobId) VALUES ($userId, $jobId)";
             $statement = $this->db->prepare($query);
             $success = $statement->execute();
-            if($success){
-                return "Applied!";
-            }
-            else{
-                echo "Failed to apply!";
-                exit;
+            if(!$success){
+                return "Failed to apply!";
             }
         }
     }

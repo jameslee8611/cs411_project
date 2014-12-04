@@ -20,22 +20,21 @@
                             <div class="col-lg-3"><h5>Progress</h5></div>
                             <div class="col-lg-3"><h5>Option</h5></div>
                         </div>
-                        <?php
-                        if (isset($this->job_data) || !empty($this->job_data)) {
-                            foreach ($this->job_data as $job_info) {
-                                echo '<div class="row applied-job-display" id="applied-'.$job_info['jobId'].'">
-                                        <div class="col-lg-6">'.$job_info['title'].'</div>
-                                        <div class="col-lg-3">'.$job_info['status'].'</div>
-                                        <div class="col-lg-3">
-                                            <button class="del-button btn btn-sm btn-default" onclick="delete_job_student_relation(\'' . $job_info['jobId'] . '\', \'' . Session::get('userId') . '\')">Delete</button>
-                                        </div>
-                                     </div>';
+                        <div class="job-applied-list">
+                            <?php
+                            if (isset($this->job_data) || !empty($this->job_data)) {
+                                foreach ($this->job_data as $job_info) {
+                                    echo '<div class="row applied-job-display" id="applied-'.$job_info['jobId'].'">
+                                            <div class="col-lg-6">'.$job_info['title'].'</div>
+                                            <div class="col-lg-3">'.$job_info['status'].'</div>
+                                            <div class="col-lg-3">
+                                                <button class="del-button btn btn-sm btn-default" onclick="delete_job_student_relation(\'' . $job_info['jobId'] . '\', \'' . Session::get('userId') . '\')">Delete</button>
+                                            </div>
+                                         </div>';
+                                }
                             }
-                        }
-                        else {
-                            echo '<tr><td>N/A</td></tr>';
-                        }
-                        ?>
+                            ?>
+                        </div>
                     </div>
                 </div>
 	</div>
@@ -52,7 +51,7 @@
 		    if (isset($this->data) || !empty($this->data)) {
 		    	echo '<table id="job-container"><tbody id="job-body">';
 		        foreach ($this->data as $info) {
-		        	$content = '<tr><td>'.'<a class="job-title" data-toggle="modal" data-target="#applyModal"><h4>'. $info['title'] . 
+		        	$content = '<tr id="job-'.$info['jobID'].'"><td>'.'<a class="job-title" data-toggle="modal" data-target="#applyModal"><h4>'. $info['title'] . 
 		        	'</h4></a>' . '<div>Company: ' . $info['companyName'] . '  /  Location: ' . $info['location'] . '</div>' . '<div class="job-description">';
 		        	if(strlen($content) > 160){
 		        		$content = $content . substr($info['description'], 0, 217) . " ... " . '</div>' . '<div>Date Posted: '. $info['postedDate'] . '</div>' . 
