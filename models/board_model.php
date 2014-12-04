@@ -37,8 +37,14 @@ class board_model extends Model {
     
     public function getLikedJob()
     {
-        //$userId = Session::get('userId');
-        //$query = "SELECT * FROM JOB WHERE recruiterId NOT IN (SELECT recruiterId FROM )"
+        $userId = Session::get('userId');
+        $query = "SELECT jobID, title, companyName, location, description, postedDate FROM JOB WHERE recruiterID IN (SELECT recruiterId FROM RelationCompanyRecruiter WHERE companyId IN (
+            SELECT companyId FROM RELATIONLIKECOMPANY WHERE studentId = $userId))";
+        $statement = $this->db->prepare($query);
+        $statement->execute();
+        $liked = $statement->fetchAll();
+
+        return $liked;
     }
 
     public function getJob()
@@ -86,7 +92,8 @@ class board_model extends Model {
         } 
         else 
         {
-            $query = "SELECT jobID, title, companyName, location, description, postedDate FROM Job";
+            $query = $query = "SELECT jobID, title, companyName, location, description, postedDate FROM JOB WHERE recruiterID NOT IN (
+                SELECT recruiterId FROM RelationCompanyRecruiter WHERE companyId IN (SELECT companyId FROM RELATIONLIKECOMPANY WHERE studentId = $uID))";
             $statement = $this->db->prepare($query);
             $statement->execute();
             $jobs = $statement->fetchAll();
