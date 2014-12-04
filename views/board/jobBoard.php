@@ -11,6 +11,30 @@
 <div class="row" id="content">
 	<div class="col-lg-3">
 		<h2>Job Board</h2>
+                <h5>Application Progress</h5>
+                <div class="row">
+                    <div class="col-lg-10">
+                        <div class="row">
+                            <div class="col-lg-6">Application</div>
+                            <div class="col-lg-3">Progress</div>
+                            <div class="col-lg-3">Option</div>
+                        </div>
+                        <?php
+                        if (isset($this->job_data) || !empty($this->job_data)) {
+                            foreach ($this->job_data as $job_info) {
+                                echo '<div class="row">
+                                        <div class="col-lg-6">'.$job_info['title'].'</div>
+                                        <div class="col-lg-3">'.$job_info['status'].'</div>
+                                        <div class="col-lg-3">'.'<button type="button" class="del-button btn btn-sm">Delete</button>'.'</div>
+                                     </div>';
+                            }
+                        }
+                        else {
+                            echo '<tr><td>N/A</td></tr>';
+                        }
+                        ?>
+                    </div>
+                </div>
 	</div>
 	<div class="col-lg-6">
 

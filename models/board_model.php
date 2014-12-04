@@ -17,6 +17,29 @@ class board_model extends Model {
         parent::__construct();
     }
     
+    public function get_applied_job()
+    {
+        $studentId = Session::get('userId');
+        
+        $query = "SELECT *
+                  FROM Job, (
+                    SELECT jobId, status, process, postedDate
+                    FROM RelationJobStudent 
+                    WHERE studentId = $studentId
+                  ) QStduent 
+                  WHERE QStduent.jobId = Job.jobID";
+        $statement = $this->db->prepare($query);
+        $statement->execute();
+        $jobs = $statement->fetchAll();
+        $result = Array();
+        foreach ($jobs as $job) {
+            array_push($result, json_decode('{"title": "'.$job['title'].'",
+                                              "date": "'.$job['postedDate'].'",
+                                              "status": "'.$this->statusCode_to_status($job['status']).'"}', true));
+        }
+        return $result;
+    }
+    
     public function getJob()
     {
         $username = Session::get('username');
@@ -417,6 +440,19 @@ class board_model extends Model {
         return $string;
     }
     
+    private function statusCode_to_status($code)
+    {
+        if (strcmp($code, "000000") == 0) { return "New"; }
+        else if (strcmp($code, "100000") == 0) { return "On Campus"; }
+        else if (strcmp($code, "100000") == 0) { return "PhoneInterviewI"; }
+        else if (strcmp($code, "100000") == 0) { return "PhoneInterviewII"; }
+        else if (strcmp($code, "100000") == 0) { return "PhoneInterviewIII"; }
+        else if (strcmp($code, "100000") == 0) { return "PhoneInterviewIV"; }
+        else if (strcmp($code, "100000") == 0) { return "OnSite"; }
+        else if (strcmp($code, "222222") == 0) { return "Done"; }
+        else { return "N/A"; }
+    }
+    
     private function solve_process_code($string)
     {
         if (strlen($string) == 0) {
@@ -433,12 +469,12 @@ class board_model extends Model {
         $status[3] = 'Phone Interview III';
         $status[4] = 'Phone Interview IV';
         $status[5] = 'On Site';
-        $value['OnCampus'] =           '100000';
+        $value['OnCampus'] =          '100000';
         $value['PhoneInterviewI'] =   '010000';
         $value['PhoneInterviewII'] =  '001000';
         $value['PhoneInterviewIII'] = '000100';
         $value['PhoneInterviewIV'] =  '000010';
-        $value['OnSite'] =             '000001';
+        $value['OnSite'] =            '000001';
         
         while ($e >= 0) {
             $bit = $string[$e];
