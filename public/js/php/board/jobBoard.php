@@ -52,9 +52,12 @@
     $(".job-title").click(function(){
     	var jobRow = $(this).closest("tr").find("td");
     	var job = $(jobRow[0]).find(".jobID");
+        console.log(job);
     	var jobId = job[0].innerHTML;
+        if (job.jobId) jobId = job.jobId;
+        console.log(jobId);
     	fillApplyModal(jobId);
-    })
+    });
 
     function fillApplyModal(jobId){
     	$("#applyModalBody").empty();
@@ -96,6 +99,7 @@
                                                                 <button class="del-button btn btn-sm btn-default" onclick="delete_job_student_relation(\''+jobId+'\', \''+userId+'\')">Delete</button>\
                                                             </div>\
                                                         </div>');
+                        $('#job-'+jobId).remove();
                     }
     		}
     	})
@@ -110,11 +114,10 @@
             data: 'json',
             success: function(jsonData){
                 var data = JSON.parse(jsonData);
-                console.log(data);
                 if (data.error_msg) alert(msg);
                 else {
-                    $('#applied-'+jobId).hide(100);
-                    $('#job-body').append('<tr id="job-' + data.jobID + '"><td>' + '<a class="job-title" data-toggle="modal" data-target="#applyModal"><h4>' + data.title + '</h4></a><div>Company: ' + data.companyName + '  /  Location: ' + data.location + '</div><div class="job-description">' + data.description + '</div><div>Date Posted: '+ data.postedDate + '</div><div class="jobID">' + data.jobID + '</div></td></tr>');
+                    $('#applied-'+jobId).remove();
+                    $('#job-body').append('<tr id="job-' + jobId + '"><td>' + '<a class="job-title" data-toggle="modal" data-target="#applyModal" onclick="fillApplyModal(\''+jobId+'\')"><h4>' + data.title + '</h4></a><div>Company: ' + data.companyName + '  /  Location: ' + data.location + '</div><div class="job-description">' + data.description + '</div><div>Date Posted: '+ data.postedDate + '</div><div class="jobID">' + data.jobID + '</div></td></tr>');
                 }
             }
     	});
