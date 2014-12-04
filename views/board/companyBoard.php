@@ -15,11 +15,6 @@
 	</div>
 	<div class="col-lg-6">
 
-		<!--<form id="searchbar">
-			<input type="text" class="form-control" id="search-input"/>
-			<input type="submit" class="form-control" id="search" value="Search"/>
-		</form>-->
-
 		<h3>Liked Companies</h3>
 		<?php
 			echo '<table id="liked-company-container"><tbody id="liked-company-body">';

@@ -100,6 +100,7 @@
                                                             </div>\
                                                         </div>');
                         $('#job-'+jobId).remove();
+                        $('#liked-job-'+jobId).remove();
                     }
     		}
     	})
@@ -117,7 +118,8 @@
                 if (data.error_msg) alert(msg);
                 else {
                     $('#applied-'+jobId).remove();
-                    $('#job-body').append('<tr id="job-' + jobId + '"><td>' + '<a class="job-title" data-toggle="modal" data-target="#applyModal" onclick="fillApplyModal(\''+jobId+'\')"><h4>' + data.title + '</h4></a><div>Company: ' + data.companyName + '  /  Location: ' + data.location + '</div><div class="job-description">' + data.description + '</div><div>Date Posted: '+ data.postedDate + '</div><div class="jobID">' + data.jobID + '</div></td></tr>');
+                    $('#liked-job-'+jobId).remove();
+                    $('#liked-job-body, #job-body').append('<tr id="job-' + jobId + '"><td>' + '<a class="job-title" data-toggle="modal" data-target="#applyModal" onclick="fillApplyModal(\''+jobId+'\')"><h4>' + data.title + '</h4></a><div>Company: ' + data.companyName + '  /  Location: ' + data.location + '</div><div class="job-description">' + data.description + '</div><div>Date Posted: '+ data.postedDate + '</div><div class="jobID">' + data.jobID + '</div></td></tr>');
                 }
             }
     	});

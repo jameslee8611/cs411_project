@@ -38,8 +38,23 @@ class board_model extends Model {
     public function getLikedJob()
     {
         $userId = Session::get('userId');
-        $query = "SELECT jobID, title, companyName, location, description, postedDate FROM JOB WHERE recruiterID IN (SELECT recruiterId FROM RelationCompanyRecruiter WHERE companyId IN (
-            SELECT companyId FROM RELATIONLIKECOMPANY WHERE studentId = $userId))";
+        $query = "SELECT Job.jobID, Job.title, Job.companyName, Job.location, Job.description, Job.postedDate 
+                  FROM (
+                        SELECT jobId
+                        FROM RelationJobStudent
+                        WHERE studentId = $userId
+                       ) matchedJobs 
+                  RIGHT JOIN Job
+                  ON matchedJobs.jobId = Job.jobID
+                  WHERE matchedJobs.jobId IS NULL AND recruiterID 
+                  IN (
+                        SELECT recruiterId 
+                        FROM RelationCompanyRecruiter 
+                        WHERE companyId 
+                        IN (
+                            SELECT companyId 
+                            FROM RELATIONLIKECOMPANY 
+                            WHERE studentId = $userId))";
         $statement = $this->db->prepare($query);
         $statement->execute();
         $liked = $statement->fetchAll();
@@ -418,7 +433,7 @@ class board_model extends Model {
         {
             $data .= '{ "studentId": "' . $row['studentId'] . '", "status": "' . $row['status'] . '" },';
         }
-        $data = substr($data, 0, -1);
+        if ($status_statement->rowCount() > 0) $data = substr($data, 0, -1);
         $data .= ']';
         
         if (!$statement) {
