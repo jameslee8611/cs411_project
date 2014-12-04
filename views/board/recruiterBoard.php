@@ -150,7 +150,7 @@
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <div id="job-modal-title">
                         <h4 class="modal-title" id="myModalJobTitleLabel">Job Title</h4>
-                        &nbsp;&nbsp;<a class="process-set-tag" data-toggle="modal" data-target="#setJobProcessModal" onclick="changeJobProcessBody('<?php echo $info['jobID']; ?>', '<?php echo Session::get('userId'); ?>')">Set Process</a>
+                        &nbsp;&nbsp;<a class="process-set-tag" data-toggle="modal" data-target="#setJobProcessModal">Set Process</a>
                     </div>
                 </div>
                 <div class="modal-body" id="jobModalBody">
@@ -158,7 +158,6 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
@@ -173,16 +172,15 @@
                     <h4 class="modal-title" id="setJobProcessLabel">Set Job Process</h4>
                 </div>
                 <div class="modal-body" id="setJobProcessBody">
-                    <form method="post" id="job-process-setting-form">
-                        <input type="checkbox" name="on_campus" value="on_campus" id="on_campus"/><label for="on_campus">On Campus</label>
-                        <input type="checkbox" name="phonescreen1" value="phonescreen1" id="phonescreen1"/><label for="phonescreen1">Phone Screen I</label>
-                        <input type="checkbox" name="phonescreen2" value="phonescreen2" id="phonescreen2"/><label for="phonescreen2">Phone Screen II</label>
-                        <input type="checkbox" name="phonescreen3" value="phonescreen3" id="phonescreen3"/><label for="phonescreen3">Phone Screen III</label>
-                        <input type="checkbox" name="phonescreen4" value="phonescreen4" id="phonescreen4"/><label for="phonescreen4">Phone Screen IV</label>
-                        <input type="checkbox" name="on_site" value="on_site" id="on_site"/><label for="on_site">On Site</label>
-                        <input type="hidden" name="jobId" id="set-process-jobId" value="" />
-                        <input type="hidden" name="recruiterId" id="set-process-recruiterId" value="" /><br /><br />
-                        <input class="btn btn-default" id="post-submit" data-dismiss="modal" type="submit" value="Save changes"/>
+                    <form role="form" method="post" id="job-process-setting-form">
+                        <input type="checkbox" name="on_campus" value="100000" id="on_campus"/><label for="on_campus">On Campus</label>
+                        <input type="checkbox" name="phonescreen1" value="10000" id="phonescreen1"/><label for="phonescreen1">Phone Screen I</label>
+                        <input type="checkbox" name="phonescreen2" value="1000" id="phonescreen2"/><label for="phonescreen2">Phone Screen II</label>
+                        <input type="checkbox" name="phonescreen3" value="100" id="phonescreen3"/><label for="phonescreen3">Phone Screen III</label>
+                        <input type="checkbox" name="phonescreen4" value="10" id="phonescreen4"/><label for="phonescreen4">Phone Screen IV</label>
+                        <input type="checkbox" name="on_site" value="1" id="on_site"/><label for="on_site">On Site</label>
+                        <input type="hidden" name="jobId" id="set-process-jobId" value="" /><br /><br />
+                        <input class="btn btn-default" id="process-change-submit" type="submit" value="Save changes" />
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </form>
                 </div>
