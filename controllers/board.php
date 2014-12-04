@@ -36,7 +36,10 @@ class board extends Controller {
         }
         
         $this->view->data = $this->model->getJob();
-        //$this->view->like = $this->model->getLikedJob();
+
+
+        $this->view->like = $this->model->getLikedJob();
+
         $this->view->job_data = $this->model->get_applied_job();
 
         $this->view->render('board/jobBoard');

@@ -2,11 +2,11 @@
 
     $(document).on('click', ".company-name", function(){
     	var companyRow = $(this).closest("tr").find("td");
-    	var company = $(companyRow[0]).find(".companyId");
+    	var company = $(companyRow[0]).find(".companyID");
     	var companyId = company[0].innerHTML;
     	var modal = $(this).attr("data-target");
     	fillLikeModal(companyId, modal);
-    })
+    });
 
     function fillLikeModal(companyId, modal){
     	$(modal + "Body").empty();
@@ -33,9 +33,9 @@
     		type: "post",
     		data: {"companyId" : companyId},
     		success: function(data){
-    			$("#company-body .companyId:contains('" + companyId + "')").closest("tr").find(".company-name").attr("data-target", "#dislikeModal");
-    			$("#liked-company-body").append("<tr>" + $("#company-body .companyId:contains('" + companyId + "')").closest("tr").html() + "</tr>");
-    			$("#company-body .companyId:contains('" + companyId + "')").closest("tr").remove();
+    			$("#company-body .companyID:contains('" + companyId + "')").closest("tr").find(".company-name").attr("data-target", "#dislikeModal");
+    			$("#liked-company-body").append("<tr>" + $("#company-body .companyID:contains('" + companyId + "')").closest("tr").html() + "</tr>");
+    			$("#company-body .companyID:contains('" + companyId + "')").closest("tr").remove();
     		}
     	})
     })
@@ -49,9 +49,9 @@
     		type: "post",
     		data: {"companyId" : companyId},
     		success: function(data){
-    			$("#liked-company-body .companyId:contains('" + companyId + "')").closest("tr").find(".company-name").attr("data-target", "#likeModal");
-    			$("#company-body").append("<tr>" + $("#liked-company-body .companyId:contains('" + companyId + "')").closest("tr").html() + "</tr>");
-    			$("#liked-company-body .companyId:contains('" + companyId + "')").closest("tr").remove();
+    			$("#liked-company-body .companyID:contains('" + companyId + "')").closest("tr").find(".company-name").attr("data-target", "#likeModal");
+    			$("#company-body").append("<tr>" + $("#liked-company-body .companyID:contains('" + companyId + "')").closest("tr").html() + "</tr>");
+    			$("#liked-company-body .companyID:contains('" + companyId + "')").closest("tr").remove();
     		}
     	})
     })

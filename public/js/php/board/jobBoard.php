@@ -32,7 +32,7 @@
 
 					$("#job-body").append('<tr><td>' + '<a href="#" class="job-title"><h4>' + jobs[i].title + '</h4></a>' + '<div>Company: ' + 
 						jobs[i].companyName + '  /  Location: ' + jobs[i].location + '</div>' + '<div class="job-description">' + description 
-						+ '</div>' + '<div>Date Posted: ' + jobs[i].postedDate + '</div>' + '</td></tr>');
+						+ '</div>' + '<div>Date Posted: ' + jobs[i].postedDate + '</div>' + '<div class="jobID">' + jobs[i].jobID + '</div>' + '</td></tr>');
 				}
 			}
 		}else{
@@ -44,7 +44,7 @@
                 }
 				$("#job-body").append('<tr><td>' + '<a href="#" class="job-title"><h4>' + jobs[i].title + '</h4></a>' + '<div>Company: ' + 
 					jobs[i].companyName + '  /  Location: ' + jobs[i].location + '</div>' + '<div class="job-description">' + description 
-					+ '</div>' + '<div>Date Posted: ' + jobs[i].postedDate + '</div>' + '</td></tr>');
+					+ '</div>' + '<div>Date Posted: ' + jobs[i].postedDate + '</div>' + '<div class="jobID">' + jobs[i].jobID + '</div>' + '</td></tr>');
 			}
 		}
     }

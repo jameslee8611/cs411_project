@@ -49,7 +49,7 @@
 		<h3>Liked Jobs</h3>
 		<?php
 		    if (isset($this->like) || !empty($this->like)) {
-		    	echo '<table id="job-container"><tbody id="job-body">';
+		    	echo '<table id="liked-job-container"><tbody id="liked-job-body">';
 		        foreach ($this->like as $info) {
 		        	$content = '<tr><td>'.'<a class="job-title" data-toggle="modal" data-target="#applyModal"><h4>'. $info['title'] . 
 		        	'</h4></a>' . '<div>Company: ' . $info['companyName'] . '  /  Location: ' . $info['location'] . '</div>' . '<div class="job-description">';
