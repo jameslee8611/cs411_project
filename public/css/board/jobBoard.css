@@ -28,3 +28,8 @@ table{
 #job-body{
 	border-top: 1px solid #4E4E4E;
 }
+
+.applied-job-display {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}

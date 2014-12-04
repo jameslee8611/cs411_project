@@ -58,7 +58,7 @@
             <label>Last Name: <input type="text" name="lastname" class="form-control" id="lastname" /></label></br>
 
             <label>Address: <input type="text" name="address" class="form-control" id="address" /></label>
-            <label>Phone Number: <input type="number" name="phonenum" class="form-control" id="phonenum" /></label><br>
+            <label>Phone Number: <input type="text" name="phonenum" class="form-control" id="phonenum" /></label><br>
 
             <label>Personal Link: <input type="text" name="personallink" class="form-control" id="personallink" /></label>
             <label>School: <input type="text" name="school" class="form-control" id="school" /></label></br>
@@ -66,8 +66,8 @@
             <label for="visa_type">Visa Type:</label></br>
             <div class="btn-group" name="profile_visa_type">
                 <label><select class="form-control" name="profile-visa" id="profile-visa"/>
-                    <option value="" selected>Visa</option>
-                    <option value="F1">F1</option>
+                    <option value="0" selected>Visa</option>
+                    <option value="1">F1</option>
                 </select></label>
             </div></br>
 
@@ -104,8 +104,8 @@
 
             <label for="search-visa">Visa Type:</label>
             <label><select class="form-control" name="search-visa" id="search-visa"/>
-                <option value="" selected>Visa</option>
-                <option value="F1">F1</option>
+                <option value="0" selected>Visa</option>
+                <option value="1">F1</option>
             </select></label><br>
             
             <label><button type="submit" class="form-control">Submit</button></label>

@@ -1,8 +1,4 @@
 <?php
-/**
- * @author  Seungchul
- * @Date    July 2, 2014
- */
 
 class Setting_Model extends Model {
 
@@ -115,6 +111,7 @@ class Setting_Model extends Model {
         $address = $_POST['address'];
         $school = $_POST['school'];
         $visa = $_POST['profile-visa'];
+        $userId = Session::get('userId');
 
 
         if(isset($_FILES['resume'])){

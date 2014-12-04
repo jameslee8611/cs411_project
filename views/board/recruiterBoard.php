@@ -95,8 +95,9 @@
                                     </div><br/>
                                     <div class="row">
                                         <div class="col-lg-8">
-                                            <label for="jobvisa">Visa Sponsorship:</label>
-                                            <input type="text" class="form-control" id="jobvisa" name="jobvisa" required="required">
+                                            <label for="jobvisa">Visa Sponsorship:</label></br>
+                                            <input type="radio" name="jobvisa" value="1" id="visa-yes" checked/><label for="visa-yes">Yes</label>
+                                            <input type="radio" name="jobvisa" value="0" id="visa-no"/><label for="visa-no">No</label>
                                         </div>
                                     </div><br/>
                                     <div class="row">
@@ -126,13 +127,14 @@
     	    if (isset($this->data) || !empty($this->data)) {
                     
                 foreach ($this->data as $info) {
-                    echo '<tr>'
+                    echo '<tr id="job-'. $info['jobID'] .'">'
                         . '<td>'
                             . '<a class="job-title" id="'. $info['jobID'] .'" data-toggle="modal" data-target="#jobModal" onclick="updateJob(\''.$info['jobID'].'\',  \''.$info['title'].'\')"><h4>'. $info['title'] . '</h4></a>' 
                             . '<div>' . $info['companyName'] . ' - ' . $info['location'] . '</div>'
                             . '<div class="job-description">'. $info['description'] . '</div>' 
                             . '<div>'. $info['postedDate'] . '</div>' 
                             . '<div class="jobID">JobID: '. $info['jobID'] . '</div>'
+                            . '<a class="remove-job" onclick="removeJob(\''.$info['jobID'].'\')">remove this job</a>'
                         . '</td>'
                         .'</tr>';
                 }
@@ -150,7 +152,7 @@
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <div id="job-modal-title">
                         <h4 class="modal-title" id="myModalJobTitleLabel">Job Title</h4>
-                        &nbsp;&nbsp;<a class="process-set-tag" data-toggle="modal" data-target="#setJobProcessModal" onclick="changeJobProcessBody('<?php echo $info['jobID']; ?>', '<?php echo Session::get('userId'); ?>')">Set Process</a>
+                        &nbsp;&nbsp;<a class="process-set-tag" data-toggle="modal" data-target="#setJobProcessModal">Set Process</a>
                     </div>
                 </div>
                 <div class="modal-body" id="jobModalBody">
@@ -158,7 +160,6 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
@@ -173,16 +174,15 @@
                     <h4 class="modal-title" id="setJobProcessLabel">Set Job Process</h4>
                 </div>
                 <div class="modal-body" id="setJobProcessBody">
-                    <form method="post" id="job-process-setting-form">
-                        <input type="checkbox" name="on_campus" value="on_campus" id="on_campus"/><label for="on_campus">On Campus</label>
-                        <input type="checkbox" name="phonescreen1" value="phonescreen1" id="phonescreen1"/><label for="phonescreen1">Phone Screen I</label>
-                        <input type="checkbox" name="phonescreen2" value="phonescreen2" id="phonescreen2"/><label for="phonescreen2">Phone Screen II</label>
-                        <input type="checkbox" name="phonescreen3" value="phonescreen3" id="phonescreen3"/><label for="phonescreen3">Phone Screen III</label>
-                        <input type="checkbox" name="phonescreen4" value="phonescreen4" id="phonescreen4"/><label for="phonescreen4">Phone Screen IV</label>
-                        <input type="checkbox" name="on_site" value="on_site" id="on_site"/><label for="on_site">On Site</label>
-                        <input type="hidden" name="jobId" id="set-process-jobId" value="" />
-                        <input type="hidden" name="recruiterId" id="set-process-recruiterId" value="" /><br /><br />
-                        <input class="btn btn-default" id="post-submit" data-dismiss="modal" type="submit" value="Save changes"/>
+                    <form role="form" method="post" id="job-process-setting-form">
+                        <input type="checkbox" name="on_campus" value="100000" id="on_campus"/><label for="on_campus">On Campus</label>
+                        <input type="checkbox" name="phonescreen1" value="10000" id="phonescreen1"/><label for="phonescreen1">Phone Screen I</label>
+                        <input type="checkbox" name="phonescreen2" value="1000" id="phonescreen2"/><label for="phonescreen2">Phone Screen II</label>
+                        <input type="checkbox" name="phonescreen3" value="100" id="phonescreen3"/><label for="phonescreen3">Phone Screen III</label>
+                        <input type="checkbox" name="phonescreen4" value="10" id="phonescreen4"/><label for="phonescreen4">Phone Screen IV</label>
+                        <input type="checkbox" name="on_site" value="1" id="on_site"/><label for="on_site">On Site</label>
+                        <input type="hidden" name="jobId" id="set-process-jobId" value="" /><br /><br />
+                        <input class="btn btn-default" id="process-change-submit" type="submit" value="Save changes" />
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </form>
                 </div>

@@ -46,3 +46,15 @@
 #job-modal-title h4 {
     display: inline;
 }
+
+#setJobProcessBody {
+    font-size: 12px;
+}
+
+#hitory_data {
+    cursor : pointer;
+}
+
+.remove-job {
+    cursor: pointer;
+}

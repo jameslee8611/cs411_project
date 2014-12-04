@@ -1,12 +1,5 @@
 <?php
 
-/**
- * Router class gets url and handle to use methods in each controller
- * 
- * @author  Seungchul Lee
- * @date    July 1, 2014
- */
-
 class Router {
 
     function __construct() {

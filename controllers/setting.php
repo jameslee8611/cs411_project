@@ -1,8 +1,4 @@
 <?php
-/**
- * @author  Seungchul
- * @date    July 2, 2014
- */
 
 class Setting extends Controller {
 

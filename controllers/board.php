@@ -1,11 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of jobboard
  *
@@ -18,6 +12,23 @@ class board extends Controller {
         $this->isLoggedIn();
     }
     
+    public function index()
+    {
+        if (!Session::get('loggedIn'))
+        {
+            header('Location: ' .URL.'error/login');
+            die();
+        }
+        else if (Session::get('isStudent'))
+        {
+            $this->jobBoard();
+        }
+        else
+        {
+            $this->recruiterBoard();
+        }
+    }
+    
     public function jobBoard()
     {
         if (!Session::get('isStudent')) {
@@ -25,7 +36,11 @@ class board extends Controller {
         }
         
         $this->view->data = $this->model->getJob();
+
         $this->view->like = $this->model->getLikedJob();
+
+        $this->view->job_data = $this->model->get_applied_job();
+
         $this->view->render('board/jobBoard');
     }
     
@@ -49,6 +64,11 @@ class board extends Controller {
             die();
         }
     }
+    
+    public function ajax_delete_job_student_relation($jobId, $studentId)
+    {
+        print_r($this->model->delete_job_student_relation($jobId, $studentId));
+    }
 
     public function ajax_getJobList()
     {
@@ -63,6 +83,11 @@ class board extends Controller {
     public function ajax_getJobById($jobId)
     {
         print_r(json_encode($this->model->getJobById($jobId)));
+    }
+    
+    public function ajax_getHistoryJobById($jobId)
+    {
+        print_r(json_encode($this->model->getHistoryJobById($jobId)));
     }
 
     public function ajax_applyJob()
@@ -85,6 +110,18 @@ class board extends Controller {
     public function addJobPost()
     {
         $result = $this->model->addJobPost();
+        print_r($result);
+    }
+    
+    public function ajax_removeJob($jobId)
+    {
+        $result = $this->model->removeJob($jobId);
+        echo $result;
+    }
+    
+    public function ajax_change_job_process()
+    {
+        $result = $this->model->change_job_process();
         print_r($result);
     }
 }
