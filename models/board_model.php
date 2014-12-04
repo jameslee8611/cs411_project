@@ -35,6 +35,12 @@ class board_model extends Model {
         return $result;
     }
     
+    public function getLikedJob()
+    {
+        //$userId = Session::get('userId');
+        //$query = "SELECT * FROM JOB WHERE recruiterId NOT IN (SELECT recruiterId FROM )"
+    }
+
     public function getJob()
     {
         $username = Session::get('username');

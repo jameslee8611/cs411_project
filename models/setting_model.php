@@ -115,6 +115,7 @@ class Setting_Model extends Model {
 
 
         if(isset($_FILES['resume'])){
+
             $resume = $_FILES['resume']['tmp_name'];
             $resumeName = $userId . '_' . $_FILES['resume']['name'];
 
@@ -124,18 +125,15 @@ class Setting_Model extends Model {
                 return false;
             }
             else{
-                $query = "UPDATE STUDENT SET firstname = '$firstname', lastname = '$lastname', phoneNumber = '$phoneNumber', personalLink = '$personalLink', 
-                    school = '$school', visaStatus = '$visa', address = '$address', resume = '$resumeName' WHERE userID = '$userId'";
+                $query = "UPDATE STUDENT SET firstname = '$firstname', lastname = '$lastname', personalLink = '$personalLink', phoneNumber = '$phoneNumber', 
+                    address = '$address', visaStatus = '$visa', school = '$school', resume = '$resumeName' WHERE userID = '$userId'";
             }
         }else{
             $query = "UPDATE STUDENT SET firstname = '$firstname', lastname = '$lastname', phoneNumber = '$phoneNumber', personalLink = '$personalLink', 
                 school = '$school', visaStatus = '$visa', address = '$address' WHERE userID = '$userId'";
         }
 
-        $statement = $this->db->prepare("
-            UPDATE STUDENT SET firstname = '$firstname', lastname = '$lastname', phoneNumber = '$phoneNumber', personalLink = '$personalLink', 
-            school = '$school', visaStatus = '$visa', address = '$address' WHERE email = '$username'
-        ");
+        $statement = $this->db->prepare($query);
         $statement->execute();
 
         if($statement){
