@@ -307,6 +307,12 @@ class board_model extends Model {
         $skill = $_POST['jobskill'];
         $salary = $_POST['jobsalary'];
         $visa = $_POST['jobvisa'];
+        if($visa == 'visa-yes'){
+            $visa = '0';
+        }
+        else {
+            $visa = '1';
+        }
         $description = $_POST['jobdescription'];
         $userId = Session::get('userId');
 

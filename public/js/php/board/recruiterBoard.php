@@ -257,7 +257,6 @@ $('#jobpost').submit(function(event) {
             
             var data = JSON.parse(result);
             if (!data.error_msg) {
-                //alert(data.company + ' ' + data.title + ' ' + data.area + ' ' + data.type + ' ' + data.location + ' ' + data.jobId + ' ' + data.postedDate);
                 
                 $('#job-container').find('tbody:last').append(
                     '<tr>' +
@@ -270,7 +269,7 @@ $('#jobpost').submit(function(event) {
                         '</td>' +
                     '</tr>'
                 );
-                
+                $('#myModal').modal('hide');
  
             }
             else{
@@ -285,10 +284,6 @@ $('#jobpost').submit(function(event) {
     });
 
     event.preventDefault();    
-});
-
-$('#job-submit').click(function(){
-    $('#myModal').modal('hide');
 });
 
 $('#job-close').click(function() {

@@ -95,8 +95,9 @@
                                     </div><br/>
                                     <div class="row">
                                         <div class="col-lg-8">
-                                            <label for="jobvisa">Visa Sponsorship:</label>
-                                            <input type="text" class="form-control" id="jobvisa" name="jobvisa" required="required">
+                                            <label for="jobvisa">Visa Sponsorship:</label></br>
+                                            <input type="radio" name="jobvisa" value="visa-yes" id="visa-yes" checked/><label for="visa-yes">Yes</label>
+                                            <input type="radio" name="jobvisa" value="visa-no" id="visa-no"/><label for="visa-no">No</label>
                                         </div>
                                     </div><br/>
                                     <div class="row">
