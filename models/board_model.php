@@ -302,7 +302,7 @@ class board_model extends Model {
 
         }
         return $result;
-        
+    }
 
     public function applyJob()
     {

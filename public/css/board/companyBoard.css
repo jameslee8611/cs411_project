@@ -1,0 +1,34 @@
+table{
+	width: 100%;
+}
+
+#currentCompanyId{
+	display: none;
+}
+
+.companyId{
+	display: none;
+}
+
+.company-name{
+	cursor: pointer;
+}
+
+#searchbar input{
+	width: 89.9%;
+	margin-top: 20px;
+	display: inline-block;
+}
+
+#searchbar #search{
+	width: auto;
+	display: inline-block;
+}
+
+#company-container tr, #liked-company-container tr{
+	border-bottom: 1px solid #4E4E4E;
+}
+
+#company-body, #liked-company-body{
+	border-top: 1px solid #4E4E4E;
+}

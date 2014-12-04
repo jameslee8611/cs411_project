@@ -1,6 +1,7 @@
 <nav class="navbar navbar-fixed-top" id="header" role="navigation">
 	<ul class="nav navbar-nav navbar-left">
         <li><a href="<?php echo URL.'board/jobboard'; ?>">JobBoard</a></li>
+        <li><a href="<?php echo URL.'company/company'; ?>">Companies</a></li>
     </ul>             
     <ul class="nav navbar-nav navbar-right">
         <li><a href="<?php echo URL.'setting'; ?>"><?php echo Session::get("username");?></a></li>
@@ -19,15 +20,35 @@
 			<input type="submit" class="form-control" id="search" value="Search"/>
 		</form>
 
-		<h3>Jobs</h3>
+		<h3>Liked Jobs</h3>
+		<?php
+		    if (isset($this->like) || !empty($this->like)) {
+		    	echo '<table id="job-container"><tbody id="job-body">';
+		        foreach ($this->like as $info) {
+		        	$content = '<tr><td>'.'<a class="job-title" data-toggle="modal" data-target="#applyModal"><h4>'. $info['title'] . 
+		        	'</h4></a>' . '<div>Company: ' . $info['companyName'] . '  /  Location: ' . $info['location'] . '</div>' . '<div class="job-description">';
+		        	if(strlen($info['description']) > 160){
+		        		$content = $content . substr($info['description'], 0, 217) . " ... " . '</div>' . '<div>Date Posted: '. $info['postedDate'] . '</div>' . 
+		        		'<div class="jobID">' . $info['jobID'] . '</div>' .'</td></tr>';
+		        		
+		        	}else{
+		        		$content = $content . $info['description'] . '</div>' . '<div>Date Posted: '. $info['postedDate'] . '</div>' . '<div class="jobID">' 
+		        		. $info['jobID'] . '</div>' .'</td></tr>';
+		        	}
+		        	echo $content;
+		        }
+		        echo '</tbody></table>';
+		    }
+		?>
 
+		<h3>General Jobs</h3>
 		<?php
 		    if (isset($this->data) || !empty($this->data)) {
 		    	echo '<table id="job-container"><tbody id="job-body">';
 		        foreach ($this->data as $info) {
 		        	$content = '<tr><td>'.'<a class="job-title" data-toggle="modal" data-target="#applyModal"><h4>'. $info['title'] . 
 		        	'</h4></a>' . '<div>Company: ' . $info['companyName'] . '  /  Location: ' . $info['location'] . '</div>' . '<div class="job-description">';
-		        	if(strlen($content) > 160){
+		        	if(strlen($info['description']) > 160){
 		        		$content = $content . substr($info['description'], 0, 217) . " ... " . '</div>' . '<div>Date Posted: '. $info['postedDate'] . '</div>' . 
 		        		'<div class="jobID">' . $info['jobID'] . '</div>' .'</td></tr>';
 		        		
@@ -48,7 +69,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title">Modal title</h4>
+        <h4 class="modal-title">Apply Job</h4>
       </div>
       <div class="modal-body" id="applyModalBody"></div>
       <div class="modal-footer">

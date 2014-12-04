@@ -174,6 +174,28 @@ else
 }
 
 $query =
+"CREATE TABLE RelationLikeCompany
+(
+	id int(11) NOT NULL AUTO_INCREMENT,
+	studentId int(11) NOT NULL,
+	companyId int(11) NOT NULL,
+
+	PRIMARY KEY (id)
+);";
+
+$statement = $db->prepare($query);
+$success = $statement->execute();
+
+if($success)
+{
+    echo 'RelationLikeCompany table has been successfully created.<br />';
+}
+else 
+{
+    echo 'Creating RelationLikeCompany table failed or it\'s been already made.<br />'; 
+}
+
+$query =
 "CREATE TABLE Preference
 (
 	minSalary int(50) DEFAULT 0,

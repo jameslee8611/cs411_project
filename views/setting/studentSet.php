@@ -1,6 +1,7 @@
 <nav class="navbar navbar-fixed-top" id="header" role="navigation">
     <ul class="nav navbar-nav navbar-left">
         <li><a href="<?php echo URL.'board/jobboard'; ?>">JobBoard</a></li>
+        <li><a href="<?php echo URL.'company/company'; ?>">Companies</a></li>
     </ul>               
     <ul class="nav navbar-nav navbar-right">
         <li><a href="<?php echo URL.'setting'; ?>"><?php echo Session::get("username");?></a></li>
@@ -15,7 +16,6 @@
             <li><a id="profile">Profile/Resume</a></li>
             <li><a id="account">Account Settings</a></li>
             <li><a id="preference">Search Preferences</a></li>
-            <li><a id="progress">Application Progress</a></li>
         </ul>
     </div>
     
@@ -110,21 +110,6 @@
             
             <label><button type="submit" class="form-control">Submit</button></label>
         </form>
-    </div>
-
-    <div class="col-lg-6" id="appProgress">
-        <h2>Application Progress</h2>
-        <table>
-            <tr>
-                <th>Application</th>
-                <th>Progress</th>
-            </tr>
-            <tr>
-                <td>Test Application</td>
-                <td>Test Progress</td>
-                <td><button type="button" class="del-button btn btn-sm">Delete</button></td>
-            </tr>
-        </table>
-    </div>
+    </div>  
 
 </div>
