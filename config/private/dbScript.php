@@ -26,7 +26,7 @@ $query =
 	address varchar(32) DEFAULT NULL,
 	visaStatus varchar(11) DEFAULT NULL,
 	school varchar(32) DEFAULT NULL,
-	resume varchar(32) NOT NULL,
+	resume varchar(100) NOT NULL,
         
 	PRIMARY KEY (userID)
 );";

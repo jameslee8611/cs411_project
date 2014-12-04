@@ -4,11 +4,11 @@ var url = <?php echo json_encode(URL); ?>;
 
 // change pdf path for pdfViewModal
 var pdfViewUpdate = function(resumeURL) {
-    var url = <?php echo json_encode(URL.'public/resume/'); ?>
+    var url = <?php echo json_encode(URL.'public/resume/'); ?>;
     url += resumeURL;
     
     $("#resume-view").attr("href", url);
-    $("resume-object").attr("data", url);
+    $("#resume-object").attr("data", url);
 };
 
 var updateProgressStatus = function(studentId, jobId, option) {
