@@ -430,7 +430,14 @@ class board_model extends Model {
         $success = $statement->execute();
         
         if (!$success) {
-            return "Error occured while deleting information!";
+            return '{"error_msg":"Error occured while deleting information!"}';
+        }
+        else {
+            //$row['jobID'], $row['title'], $row['companyName'], $row['description'], $row['location'], $row['postedDate']
+            $statement = $this->db->prepare("SELECT * FROM Job WHERE Job.jobID = $jobId");
+            $statement->execute();
+            $job = $statement->fetch();
+            return '{"jobId": '.$job['jobID'].', "title": "'.$job['title'].'", "companyName": "'.$job['companyName'].'", "description": "'.$job['description'].'", "location": "'.$job['location'].'", "postedDate": "'.$job['postedDate'].'"}';
         }
     }
 

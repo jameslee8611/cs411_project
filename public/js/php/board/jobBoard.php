@@ -108,9 +108,14 @@
             url: post_url,
             type: "post",
             data: 'json',
-            success: function(msg){
-                if (msg) alert(msg);
-                else $('#applied-'+jobId).hide(100);
+            success: function(jsonData){
+                var data = JSON.parse(jsonData);
+                console.log(data);
+                if (data.error_msg) alert(msg);
+                else {
+                    $('#applied-'+jobId).hide(100);
+                    $('#job-body').append('<tr id="job-' + data.jobID + '"><td>' + '<a class="job-title" data-toggle="modal" data-target="#applyModal"><h4>' + data.title + '</h4></a><div>Company: ' + data.companyName + '  /  Location: ' + data.location + '</div><div class="job-description">' + data.description + '</div><div>Date Posted: '+ data.postedDate + '</div><div class="jobID">' + data.jobID + '</div></td></tr>');
+                }
             }
     	});
     } ;
